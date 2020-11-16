@@ -1,0 +1,34 @@
+APPROX_MVBB_INCLUDE_DIR:=/Users/mike/code/github/ApproxMVBB/BUILD/install/include
+APPROX_MVBB_LIB_DIR:=/Users/mike/code/github/ApproxMVBB/BUILD/install/lib
+APPROX_MVBB_EXTRA_CPP_FLAGS:=-rpath /Users/mike/code/github/ApproxMVBB/BUILD/install/lib
+
+ARGS_INCLUDE_DIR:=../../third_party/args
+
+ARMADILLO_INCLUDE_DIR:=/usr/local/include
+ARMADILLO_LIB_DIR:=/usr/local/lib
+ARMADILLO_EXTRA_CPP_FLAGS:=-DARMA_USE_HDF5
+
+EMBREE_INCLUDE_DIR:=/opt/local/include
+EMBREE_LIB_DIR:=/opt/local/lib
+
+# required when building the Hypersim Scene Annotation Tool
+FONT_AWESOME_DIR:=/Users/mike/code/github/Font-Awesome
+
+HDF5_INCLUDE_DIR:=/usr/local/include
+HDF5_LIB_DIR:=/usr/local/lib
+
+# required when building the Hypersim Scene Annotation Tool
+ICON_FONT_CPP_HEADERS_INCLUDE_DIR:=../../third_party/IconFontCppHeaders
+
+# required when building the Hypersim Scene Annotation Tool
+LIBIGL_INCLUDE_DIR:=/Users/mike/code/gitHub/libigl/include
+LIBIGL_EXTERNAL_DIR:=/Users/mike/code/gitHub/libigl/external
+LIBIGL_LIB_DIR:=/Users/mike/code/gitHub/libigl/BUILD
+LIBIGL_EXTRA_CPP_FLAGS:=-framework Cocoa -framework CoreVideo -framework IOKit
+
+OCTOMAP_INCLUDE_DIR:=/Users/mike/code/gitHub/octomap/octomap/include
+OCTOMAP_LIB_DIR:=/Users/mike/code/gitHub/octomap/lib
+OCTOMAP_EXTRA_CPP_FLAGS:=-rpath /Users/mike/code/gitHub/octomap/lib
+
+OPENEXR_INCLUDE_DIR:=/usr/local/include
+OPENEXR_LIB_DIR:=/usr/local/lib
