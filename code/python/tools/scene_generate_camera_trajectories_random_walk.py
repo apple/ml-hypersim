@@ -134,7 +134,7 @@ if args.use_python_reference_implementation:
 
 
 
-# get cameras from the original 3ds Max file
+# get cameras from the original asset file
 df_cameras_asset_export = pd.read_csv(metadata_cameras_asset_export_csv_file)
 df_cameras = pd.DataFrame(columns=["camera_name"])
 i = 0

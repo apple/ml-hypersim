@@ -10,8 +10,8 @@ InfoRenderEngine infoRenderEngine {
   version="4.20.01";
   build="00001";
   build_date="2019-07-02 14:04";
-  host="3ds Max";
-  host_version="2018";
+  host="";
+  host_version="";
 }
 
 SettingsRTEngine rtEngine_settings {
