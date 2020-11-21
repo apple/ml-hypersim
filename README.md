@@ -34,8 +34,8 @@ V-Ray Standalone and the V-Ray AppSDK are available under their own terms [here]
 If you're using Anaconda, you can install all of the required Python libraries using our `requirements.txt` file.
 
 ```
-conda create --name hypersim_env --file requirements.txt
-conda activate hypersim_env
+conda create --name hypersim-env --file requirements.txt
+conda activate hypersim-env
 ```
 
 Optional Python libraries (see below) can be installed separately. For example,
