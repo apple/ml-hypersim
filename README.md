@@ -1,15 +1,15 @@
-![The Hypersim Toolkit](assets/teaser_web.jpg "The Hypersim Toolkit")
+![The Hypersim Dataset](docs/teaser_web.jpg "The Hypersim Dataset")
 
-# The Hypersim Toolkit
+# The Hypersim Dataset
 
-The Hypersim Toolkit is a set of tools for generating photorealistic synthetic datasets from V-Ray scenes. By building on top of V-Ray, the datasets generated using the Hypersim Toolkit can leverage advanced rendering effects (e.g., rolling shutter, motion and defocus blur, chromatic aberration), as well as abundant high-quality 3D content from online marketplaces.
+For many fundamental scene understanding tasks, it is difficult or impossible to obtain per-pixel ground truth labels from real images. We address this challenge by introducing Hypersim, a photorealistic synthetic dataset for holistic indoor scene understanding. To create our dataset, we leverage a large repository of synthetic scenes created by professional artists, and we generate 77,400 images of 461 indoor scenes with detailed per-pixel labels and corresponding ground truth geometry. Our dataset: (1) relies exclusively on publicly available 3D assets; (2) includes complete scene geometry, material information, and lighting information for every scene; (3) includes dense per-pixel semantic instance segmentations for every image; and (4) factors every image into diffuse reflectance, diffuse illumination, and a non-diffuse residual term that captures view-dependent lighting effects. Together, these features make our dataset well-suited for geometric learning problems that require direct 3D supervision, multi-task learning problems that require reasoning jointly over multiple input and output modalities, and inverse rendering problems.
 
-The Hypersim Toolkit consists of tools that operate at two distinct levels of abstraction. The _Hypersim Low-Level Toolkit_ is concerned with manipulating individual V-Ray scene files. The _Hypersim High-Level Toolkit_ is concerned with manipulating collections of scenes. You can use the Hypersim Low-Level Toolkit to output richly annotated ground truth labels, programmatically specify camera trajectories and custom lens distortion models, and programmatically insert geometry into a scene. You can use the Hypersim High-Level Toolkit to generate collision-free camera trajectories that are biased towards the salient parts of a scene, and interactively apply semantic labels to scenes.
+The Hypersim Dataset is licensed under the [Creative Commons Attribution-ShareAlike 3.0 Unported License](http://creativecommons.org/licenses/by-sa/3.0/).
 
 &nbsp;
 ## Citation
 
-If you find the Hypersim Toolkit useful in your research, please cite the following [paper](https://arxiv.org/abs/2011.02523):
+If you find the Hypersim Dataset or the Hypersim Toolkit useful in your research, please cite the following [paper](https://arxiv.org/abs/2011.02523):
 
 ```
 @misc{roberts:2020,
@@ -18,6 +18,86 @@ If you find the Hypersim Toolkit useful in your research, please cite the follow
     howpublished = {arXiv 2020},
 }
 ```
+
+&nbsp;
+## Downloading the Hypersim Dataset
+
+To obtain our image dataset, you can run the following download script.
+
+```
+python code/tools/python/dataset_download_images.py --downloads_dir /Volumes/portable_hard_drive/downloads --decompress_dir /Volumes/portable_hard_drive/evermotion_dataset/scenes
+```
+
+Note that our dataset is roughly 1.9TB. We have partitioned the dataset into a few hundred separate ZIP files, where each ZIP file is between 1GB and 20GB. Our [download script](code/python/tools/dataset_download_images.py) contains the URLs for each ZIP file. Note also that we manually excluded images containing people and prominent logos from our public release, and therefore our public release contains 74,619 images, rather than 77,400 images. We list all the images we manually excluded in `hypersim/evermotion_dataset/analysis/metadata_images.csv`.
+
+To obtain the ground truth triangle meshes for each scene, you must purchase the assets files [here](https://www.turbosquid.com/Search/3D-Models?include_artist=evermotion).
+
+&nbsp;
+## Working with the Hypersim Dataset
+
+The Hypersim Dataset consists of a collection of synthetic scenes. Each scene has a name of the form `ai_VVV_NNN` where `VVV` is the volume number, and `NNN` is the scene number within the volume. For each scene, there are one or more camera trajectories named {`cam_00`, `cam_01`, ...}. Each camera trajectories has one or more images named {`frame.0000`, `frame.0001`, ...}. Each scene is stored in its own ZIP file, and the following data modalities are available for each scene.
+
+### Lossless high-dynamic range images
+
+Images for each camera trajectory are stored as lossless high-dynamic range HDF5 files at the following locations within each ZIP file:
+
+```
+ai_VVV_NNN/images/scene_cam_XX_final_hdf5                                      # contains data modalities that require accurate shading
+ai_VVV_NNN/images/scene_cam_XX_final_hdf5/frame.IIII.color.hdf5                # color image before any tonemapping has been applied
+ai_VVV_NNN/images/scene_cam_XX_final_hdf5/frame.IIII.diffuse_illumination.hdf5 # diffuse illumination
+ai_VVV_NNN/images/scene_cam_XX_final_hdf5/frame.IIII.diffuse_reflectance.hdf5  # diffuse reflectance (some authors refer to this modality as albedo)
+ai_VVV_NNN/images/scene_cam_XX_final_hdf5/frame.IIII.residual.hdf5             # non-diffuse residual
+
+ai_VVV_NNN/images/scene_cam_XX_geometry_hdf5                                   # contains data modalities that do not require accurate shading
+ai_VVV_NNN/images/scene_cam_XX_geometry_hdf5/frame.IIII.depth_meters.hdf5      # Euclidean distance in meters from the surface sample at each pixel to the optical center of the camera
+ai_VVV_NNN/images/scene_cam_XX_geometry_hdf5/frame.IIII.position.hdf5          # world-space positions in asset coordinates (not meters)
+ai_VVV_NNN/images/scene_cam_XX_geometry_hdf5/frame.IIII.normal_cam.hdf5        # surface normals in camera space (ignores bump maps)
+ai_VVV_NNN/images/scene_cam_XX_geometry_hdf5/frame.IIII.normal_world.hdf5      # surface normals in world space (ignores bump maps)
+ai_VVV_NNN/images/scene_cam_XX_geometry_hdf5/frame.IIII.normal_bump_cam.hdf5.  # surface normals in camera space (takes bump maps into account)
+ai_VVV_NNN/images/scene_cam_XX_geometry_hdf5/frame.IIII.normal_bump_world.hdf5 # surface normals in world space (takes bump maps into account)
+ai_VVV_NNN/images/scene_cam_XX_geometry_hdf5/frame.IIII.render_entity_id.hdf5  # fine-grained segmentation where each render entity has a unique ID
+ai_VVV_NNN/images/scene_cam_XX_geometry_hdf5/frame.IIII.semantic.hdf5          # semantic IDs using NYU40 labels
+ai_VVV_NNN/images/scene_cam_XX_geometry_hdf5/frame.IIII.semantic_instance.hdf5 # semantic instance IDs
+ai_VVV_NNN/images/scene_cam_XX_geometry_hdf5/frame.IIII.tex_coord.hdf5         # texture coordinates
+```
+
+The `color`, `diffuse_illumination`, `diffuse_reflectance`, and `residual` images adhere (with very low error) to the following equation:
+
+```
+color == (diffuse_reflectance * diffuse_illumination) + residual
+```
+
+Note that the `color`, `diffuse_illumination`, `diffuse_reflectance`, and `residual` images do not have any tonemapping applied to them. In order to use these images for downstream learning tasks, we recommend applying your own tonemapping operator to the images. We implement a simple tonemapping operator in `hypersim/code/python/tools/scene_generate_images_tonemap.py`.
+
+### Lossy preview images
+
+Lossy preview images that are useful for debugging are stored at the following locations within each ZIP file:
+
+```
+ai_VVV_NNN/images/scene_cam_XX_final_preview    # contains preview images for data modalities that require accurate shading
+ai_VVV_NNN/images/scene_cam_XX_geometry_preview # contains preview images for data modalities that do not require accurate shading
+```
+
+### Camera trajectories
+
+Each camera trajectory is stored as a dense list of camera poses at the following location within each ZIP file:
+
+```
+ai_VVV_NNN/_detail/cam_XX # each camera trajectory is stored in several HDF5 files (see scene_generate_images_bounding_box.py for details)
+```
+
+We recommend browsing through `hypersim/code/python/tools/scene_generate_images_bounding_box.py` to understand our camera pose conventions. In this file, we generate an image that has per-object 3D bounding boxes overlaid on top of a previously rendered image. This process involves loading a previously rendered image, loading the appropriate camera pose for that image, forming the appropriate projection matrix, and projecting the world-space corners of each bounding box into the image.
+
+### 3D bounding boxes
+
+We will include 9-DOF bounding boxes for each semantic instance in an upcoming release.
+
+&nbsp;
+# The Hypersim Toolkit
+
+The Hypersim Toolkit is a set of tools for generating photorealistic synthetic datasets from V-Ray scenes. By building on top of V-Ray, the datasets generated using the Hypersim Toolkit can leverage advanced rendering effects (e.g., rolling shutter, motion and defocus blur, chromatic aberration), as well as abundant high-quality 3D content from online marketplaces.
+
+The Hypersim Toolkit consists of tools that operate at two distinct levels of abstraction. The _Hypersim Low-Level Toolkit_ is concerned with manipulating individual V-Ray scene files. The _Hypersim High-Level Toolkit_ is concerned with manipulating collections of scenes. You can use the Hypersim Low-Level Toolkit to output richly annotated ground truth labels, programmatically specify camera trajectories and custom lens distortion models, and programmatically insert geometry into a scene. You can use the Hypersim High-Level Toolkit to generate collision-free camera trajectories that are biased towards the salient parts of a scene, and interactively apply semantic labels to scenes.
 
 &nbsp;
 ## Disclaimer
@@ -183,19 +263,19 @@ The following tutorial examples demonstrate the functionality in the Hypersim To
 - [`01_marketplace_dataset`](examples/01_marketplace_dataset) In this tutorial example, we use the Hypersim High-Level Toolkit to export and manipulate a scene downloaded from a content marketplace. We generate a collection of richly annotated ground truth images based on a random walk camera trajectory through the scene.
 
 &nbsp;
-## Generating the full Hypersim dataset
+## Generating the full Hypersim Dataset
 
-We recommend completing the [`00_empty_scene`](examples/00_empty_scene) and [`01_marketplace_dataset`](examples/01_marketplace_dataset) tutorial examples before attempting to generate the full Hypersim dataset.
+We recommend completing the [`00_empty_scene`](examples/00_empty_scene) and [`01_marketplace_dataset`](examples/01_marketplace_dataset) tutorial examples before attempting to generate the full Hypersim Dataset.
 
 ### Downloading scenes
 
-In order to generate the full Hypersim dataset, we use Evermotion Archinteriors Volumes 1-55 excluding 20,25,40,49. All the Evermotion Archinteriors volumes are available for purchase [here](https://www.turbosquid.com/Search/3D-Models?include_artist=evermotion).
+In order to generate the full Hypersim Dataset, we use Evermotion Archinteriors Volumes 1-55 excluding 20,25,40,49. All the Evermotion Archinteriors volumes are available for purchase [here](https://www.turbosquid.com/Search/3D-Models?include_artist=evermotion).
 
 You need to create a `downloads` directory, and manually download the Evermotion Archinteriors RAR and 7z archives into it. Almost all the archives have clear filenames that include the volume number and scene number, and do not need to be renamed to avoid confusion. The exception to this rule is Evermotion Archinteriors Volume 11, whose archives are named {`01.rar`, `02.rar`, ...}. You need to manually rename these archives to {`AI11_01.rar`, `AI11_02.rar`, ...} in order to match the dataset configuration file (`_dataset_config.py`) we provide.
 
 ### Running our pipeline on multiple operating systems
 
-Some of our pipeline steps require Windows, and others require macOS or Linux. It is therefore desriable to specify an output directory for the various steps of our pipeline that is visible to both operating systems. Ideally, you would specify an output directory on a fast network drive with lots of storage space. However, our pipeline generates a lot of intermediate data, and disk I/O can become a significant bottleneck, even on relatively fast network drives. We therefore recommend the quick-and-dirty solution of generating the Hypersim dataset on portable hard drives that you can read and write from Windows and macOS (or Linux).
+Some of our pipeline steps require Windows, and others require macOS or Linux. It is therefore desriable to specify an output directory for the various steps of our pipeline that is visible to both operating systems. Ideally, you would specify an output directory on a fast network drive with lots of storage space. However, our pipeline generates a lot of intermediate data, and disk I/O can become a significant bottleneck, even on relatively fast network drives. We therefore recommend the quick-and-dirty solution of generating the Hypersim Dataset on portable hard drives that you can read and write from Windows and macOS (or Linux).
 
 You need to make sure that the absolute path to the dataset on Windows is consistent (i.e., always has the same drive letter) when executing the Windows-only steps of our pipeline. We recommend making a note of the absolute Windows path to the dataset, because you will need to supply it whenever a subsequent pipeline step requires the `dataset_dir_when_rendering` argument.
 
@@ -205,7 +285,7 @@ The `scene_names` argument works in the following way. We give each scene in our
 
 ### Handling scenes and camera trajectories that have been manually excluded
 
-When preparing the Hypersim dataset, we chose to manually exclude some scenes and automatically generated camera trajectories. Most of the scenes we excluded are simply commented out in our `_dataset_config.py` file, and therefore our pipeline never processes these scenes. However, for some scenes, we needed to run some of our pipeline in order to decide to exclude them. These scenes are un-commmented in our `dataset_config.py` file, and therefore our pipeline will process these scenes by default. There is no harm in running our pipeline for these scenes, but it is possible to save a bit of time and money by not rendering images for these manually excluded scenes and camera trajectories.
+When preparing the Hypersim Dataset, we chose to manually exclude some scenes and automatically generated camera trajectories. Most of the scenes we excluded are simply commented out in our `_dataset_config.py` file, and therefore our pipeline never processes these scenes. However, for some scenes, we needed to run some of our pipeline in order to decide to exclude them. These scenes are un-commmented in our `dataset_config.py` file, and therefore our pipeline will process these scenes by default. There is no harm in running our pipeline for these scenes, but it is possible to save a bit of time and money by not rendering images for these manually excluded scenes and camera trajectories.
 
 The camera trajectories we manually excluded from our dataset are listed in `hypersim/evermotion_dataset/analysis/metadata_camera_trajectories.csv`. If the `Scene type` column is listed as `OUTSIDE VIEWING AREA (BAD INITIALIZATION)` or `OUTSIDE VIEWING AREA (BAD TRAJECTORY)`, then we consider that trajectory to be manually excluded from our dataset. If all the camera trajectories for a scene have been manually excluded, then we consider the scene to be manually excluded. We recommend excluding these scenes and camera trajectories in downstream learning applications for consistency with other publications, and to obtain the cleanest possible training data.
 
@@ -221,7 +301,7 @@ In our pipeline, we divide rendering into 3 passes. Each rendering pass for each
 
 ### Running the full pipeline
 
-To process the first batch of scenes (Volumes 1-9) in the Hypersim dataset, we execute the following pipeline steps. We process subsequent batches by executing these steps repeatedly, substituting the `scene_names` argument as described above.  See the [`01_marketplace_dataset`](examples/01_marketplace_dataset) tutorial example for more details on each of these pipeline steps.
+To process the first batch of scenes (Volumes 1-9) in the Hypersim Dataset, we execute the following pipeline steps. We process subsequent batches by executing these steps repeatedly, substituting the `scene_names` argument as described above.  See the [`01_marketplace_dataset`](examples/01_marketplace_dataset) tutorial example for more details on each of these pipeline steps.
 
 _You must substitute your own `dataset_dir_when_rendering` when executing these pipeline steps, and it must be an absolute path. You must also substitute your own `dataset_dir` and `downloads_dir`, but these arguments do not need to be absolute paths. You must wait until each rendering pass is complete, and all data has finished downloading from the cloud, before proceeding to the next pipeline step._
 

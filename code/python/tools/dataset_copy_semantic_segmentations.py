@@ -51,14 +51,9 @@ for s in scenes:
     files_to_copy = [
         "mesh_objects_si.hdf5",
         "mesh_objects_sii.hdf5",
-        "metadata_groups.csv",
-        "metadata_materials.csv",
         "metadata_objects.csv",
         "metadata_scene_annotation_tool.log",
         "metadata_semantic_colors.hdf5",
-        "metadata_semantic_instance_bounding_box_object_aligned_2d_extents.hdf5",
-        "metadata_semantic_instance_bounding_box_object_aligned_2d_orientations.hdf5",
-        "metadata_semantic_instance_bounding_box_object_aligned_2d_positions.hdf5",
         "metadata_semantic_instance_colors.hdf5"
     ]
     

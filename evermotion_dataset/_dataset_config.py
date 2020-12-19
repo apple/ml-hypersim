@@ -351,7 +351,7 @@ scenes.append({"name": "ai_026_020", "archive_file": "Archinteriors_26_20.rar", 
 
 scenes.append({"name": "ai_027_001", "archive_file": "Archinteriors_27_001.rar",            "asset_file": os.path.join("Archinteriors_27_001",            "AI_27_001_cam001_cam002_cam003"),  "normalization_policy": "v0", "scene_extent_meters": 30.0,  "voxel_extent_meters": 0.1})
 
-# crashes 3dsmaxbatch.exe during export
+# crashes during export
 # scenes.append({"name": "ai_027_002", "archive_file": "Archinteriors_27_002.rar",            "asset_file": os.path.join("Archinteriors_27_002",            "AI_027_002_cam001_cam002_cam003"), "normalization_policy": "v0", "scene_extent_meters": 30.0,  "voxel_extent_meters": 0.1})
 
 scenes.append({"name": "ai_027_003", "archive_file": "Archinteriors_27_003.rar",            "asset_file": os.path.join("Archinteriors_27_003",            "AI_27_003_cam001_cam002_cam003"),  "normalization_policy": "v0", "scene_extent_meters": 30.0,  "voxel_extent_meters": 0.1})
@@ -436,7 +436,7 @@ scenes.append({"name": "ai_032_009", "archive_file": "Archinteriors_32_Scene_009
 scenes.append({"name": "ai_033_001", "archive_file": "AI33_Scene_001.rar",                  "asset_file": os.path.join("Scene_001",                       "AI33_001"),                        "normalization_policy": "v0", "scene_extent_meters": 30.0,  "voxel_extent_meters": 0.1})
 scenes.append({"name": "ai_033_002", "archive_file": "AI33_Scene_002.rar",                  "asset_file": os.path.join("Scene_002",                       "AI33_002"),                        "normalization_policy": "v0", "scene_extent_meters": 30.0,  "voxel_extent_meters": 0.1})
 
-# crashes 3dsmaxbatch.exe during export
+# crashes during export
 # scenes.append({"name": "ai_033_003", "archive_file": "AI33_Scene_003.rar",                  "asset_file": os.path.join("Scene_003",                       "AI33_003"),                        "normalization_policy": "v0", "scene_extent_meters": 30.0,  "voxel_extent_meters": 0.1})
 
 scenes.append({"name": "ai_033_004", "archive_file": "AI33_Scene_004.rar",                  "asset_file": os.path.join("Scene_004",                       "AI33_004"),                        "normalization_policy": "v0", "scene_extent_meters": 30.0,  "voxel_extent_meters": 0.1})
@@ -474,7 +474,7 @@ scenes.append({"name": "ai_036_001", "archive_file": "AI36_Scene_001.rar",      
 scenes.append({"name": "ai_036_002", "archive_file": "AI36_Scene_002.rar",                  "asset_file": os.path.join("Scene_002",                       "AI36_002"),                        "normalization_policy": "v0", "scene_extent_meters": 30.0,  "voxel_extent_meters": 0.1})
 scenes.append({"name": "ai_036_003", "archive_file": "AI36_Scene_003.rar",                  "asset_file": os.path.join("Scene_003",                       "AI36_003_2011"),                   "normalization_policy": "v0", "scene_extent_meters": 30.0,  "voxel_extent_meters": 0.1})
 
-# crashes 3dsmaxbatch.exe during export
+# crashes during export
 # scenes.append({"name": "ai_036_004", "archive_file": "AI36_Scene_004.rar",                  "asset_file": os.path.join("Scene_004",                       "AI36_004"),                        "normalization_policy": "v0", "scene_extent_meters": 30.0,  "voxel_extent_meters": 0.1})
 
 scenes.append({"name": "ai_036_005", "archive_file": "AI36_Scene_005.rar",                  "asset_file": os.path.join("Scene_005",                       "AI36_005"),                        "normalization_policy": "v0", "scene_extent_meters": 30.0,  "voxel_extent_meters": 0.1})
@@ -503,7 +503,7 @@ scenes.append({"name": "ai_038_005", "archive_file": "AI38_Scene_005.rar",      
 scenes.append({"name": "ai_038_006", "archive_file": "AI38_Scene_006.rar",                  "asset_file": os.path.join("Scene_006",                       "AI38_006"),                        "normalization_policy": "v0", "scene_extent_meters": 30.0,  "voxel_extent_meters": 0.1})
 scenes.append({"name": "ai_038_007", "archive_file": "AI38_Scene_007.rar",                  "asset_file": os.path.join("Scene_007",                       "AI38_007"),                        "normalization_policy": "v0", "scene_extent_meters": 30.0,  "voxel_extent_meters": 0.1})
 
-# crashes 3dsmaxbatch.exe during export
+# crashes during export
 # scenes.append({"name": "ai_038_008", "archive_file": "AI38_Scene_008.rar",                  "asset_file": os.path.join("Scene_008",                       "AI38_008"),                        "normalization_policy": "v0", "scene_extent_meters": 30.0,  "voxel_extent_meters": 0.1})
 
 scenes.append({"name": "ai_038_009", "archive_file": "AI38_Scene_009.rar",                  "asset_file": os.path.join("Scene_009",                       "AI38_009"),                        "normalization_policy": "v0", "scene_extent_meters": 30.0,  "voxel_extent_meters": 0.1})
@@ -545,7 +545,7 @@ scenes.append({"name": "ai_042_003", "archive_file": "AI42_Scene_003.rar",      
 scenes.append({"name": "ai_042_004", "archive_file": "AI42_Scene_004.rar",                  "asset_file": os.path.join("Scene_004",                       "AI42_004"),                        "normalization_policy": "v0", "scene_extent_meters": 30.0,  "voxel_extent_meters": 0.1})
 scenes.append({"name": "ai_042_005", "archive_file": "AI42_Scene_005.rar",                  "asset_file": os.path.join("Scene_005",                       "AI42_005"),                        "normalization_policy": "v0", "scene_extent_meters": 30.0,  "voxel_extent_meters": 0.1})
 
-# crashes 3dsmaxbatch.exe during export
+# crashes during export
 # scenes.append({"name": "ai_043_001", "archive_file": "AI43_001.rar",                        "asset_file": os.path.join("001",                             "AI43_001"),                        "normalization_policy": "v0", "scene_extent_meters": 30.0,  "voxel_extent_meters": 0.1})
 
 scenes.append({"name": "ai_043_002", "archive_file": "AI43_002.rar",                        "asset_file": os.path.join("002",                             "AI43_002"),                        "normalization_policy": "v0", "scene_extent_meters": 30.0,  "voxel_extent_meters": 0.1})
@@ -571,22 +571,22 @@ scenes.append({"name": "ai_044_010", "archive_file": "AI44_Scene_010.rar",      
 
 scenes.append({"name": "ai_045_001", "archive_file": "AI45_Scene_001.part1.rar",            "asset_file": os.path.join("Scene_001",                       "AI45_001"),                        "normalization_policy": "v0", "scene_extent_meters": 30.0,  "voxel_extent_meters": 0.1})
 
-# crashes 3dsmaxbatch.exe during export
+# crashes during export
 # scenes.append({"name": "ai_045_002", "archive_file": "AI45_Scene_002.rar",                  "asset_file": os.path.join("Scene_002",                       "AI45_002"),                        "normalization_policy": "v0", "scene_extent_meters": 30.0,  "voxel_extent_meters": 0.1})
 
-# crashes 3dsmaxbatch.exe during export
+# crashes during export
 # scenes.append({"name": "ai_045_003", "archive_file": "AI45_Scene_003.rar",                  "asset_file": os.path.join("Scene_003",                       "AI45_003"),                        "normalization_policy": "v0", "scene_extent_meters": 30.0,  "voxel_extent_meters": 0.1})
 
 scenes.append({"name": "ai_045_004", "archive_file": "AI45_Scene_004.part1.rar",            "asset_file": os.path.join("Scene_004",                       "AI45_004"),                        "normalization_policy": "v0", "scene_extent_meters": 30.0,  "voxel_extent_meters": 0.1})
 scenes.append({"name": "ai_045_005", "archive_file": "AI45_Scene_005.rar",                  "asset_file": os.path.join("Scene_005",                       "AI45_005"),                        "normalization_policy": "v0", "scene_extent_meters": 30.0,  "voxel_extent_meters": 0.1})
 scenes.append({"name": "ai_045_006", "archive_file": "AI45_Scene_006.rar",                  "asset_file": os.path.join("Scene_006",                       "AI45_006"),                        "normalization_policy": "v0", "scene_extent_meters": 30.0,  "voxel_extent_meters": 0.1})
 
-# crashes 3dsmaxbatch.exe during export
+# crashes during export
 # scenes.append({"name": "ai_045_007", "archive_file": "AI45_Scene_007.part1.rar",            "asset_file": os.path.join("Scene_007",                       "AI45_007"),                        "normalization_policy": "v0", "scene_extent_meters": 30.0,  "voxel_extent_meters": 0.1})
 
 scenes.append({"name": "ai_045_008", "archive_file": "AI45_Scene_008.part1.rar",            "asset_file": os.path.join("Scene_008",                       "AI45_008"),                        "normalization_policy": "v0", "scene_extent_meters": 30.0,  "voxel_extent_meters": 0.1})
 
-# crashes 3dsmaxbatch.exe during export
+# crashes during export
 # scenes.append({"name": "ai_045_009", "archive_file": "AI45_Scene_009.part1.rar",            "asset_file": os.path.join("Scene_009",                       "AI45_009"),                        "normalization_policy": "v0", "scene_extent_meters": 30.0,  "voxel_extent_meters": 0.1})
 
 scenes.append({"name": "ai_045_010", "archive_file": "AI45_Scene_010.rar",                  "asset_file": os.path.join("Scene_010",                       "AI45_010"),                        "normalization_policy": "v0", "scene_extent_meters": 30.0,  "voxel_extent_meters": 0.1})
@@ -601,7 +601,7 @@ scenes.append({"name": "ai_046_007", "archive_file": "AI46_Scene_007.rar",      
 scenes.append({"name": "ai_046_008", "archive_file": "AI46_Scene_008.rar",                  "asset_file": os.path.join("008",                             "AI46_008"),                        "normalization_policy": "v0", "scene_extent_meters": 30.0,  "voxel_extent_meters": 0.1})
 scenes.append({"name": "ai_046_009", "archive_file": "AI46_Scene_009.rar",                  "asset_file": os.path.join("009",                             "AI46_009"),                        "normalization_policy": "v0", "scene_extent_meters": 30.0,  "voxel_extent_meters": 0.1})
 
-# crashes 3dsmaxbatch.exe during export
+# crashes during export
 # scenes.append({"name": "ai_046_010", "archive_file": "AI46_Scene_010.rar",                  "asset_file": os.path.join("010",                             "AI46_010"),                        "normalization_policy": "v0", "scene_extent_meters": 30.0,  "voxel_extent_meters": 0.1})
 
 scenes.append({"name": "ai_047_001", "archive_file": "AI47_001.rar",                        "asset_file": os.path.join("001",                             "AI47_001"),                        "normalization_policy": "v0", "scene_extent_meters": 30.0,  "voxel_extent_meters": 0.1})
@@ -614,7 +614,7 @@ scenes.append({"name": "ai_047_007", "archive_file": "AI47_007.rar",            
 scenes.append({"name": "ai_047_008", "archive_file": "AI47_008.rar",                        "asset_file": os.path.join("008",                             "AI47_008"),                        "normalization_policy": "v0", "scene_extent_meters": 30.0,  "voxel_extent_meters": 0.1})
 scenes.append({"name": "ai_047_009", "archive_file": "AI47_009.rar",                        "asset_file": os.path.join("009",                             "AI47_009"),                        "normalization_policy": "v0", "scene_extent_meters": 30.0,  "voxel_extent_meters": 0.1})
 
-# crashes 3dsmaxbatch.exe during export
+# crashes during export
 # scenes.append({"name": "ai_047_010", "archive_file": "AI47_010.rar",                        "asset_file": os.path.join("010",                             "AI47_010"),                        "normalization_policy": "v0", "scene_extent_meters": 30.0,  "voxel_extent_meters": 0.1})
 
 scenes.append({"name": "ai_048_001", "archive_file": "Ai48_001.7z",                         "asset_file": os.path.join("001",                             "AI48_001"),                        "normalization_policy": "v0", "scene_extent_meters": 30.0,  "voxel_extent_meters": 0.1})

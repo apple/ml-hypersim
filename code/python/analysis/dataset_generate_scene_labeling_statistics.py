@@ -7,12 +7,9 @@ from pylab import *
 
 import argparse
 import fnmatch
-import glob
-import h5py
 import inspect
 import os
 import pandas as pd
-import sklearn.preprocessing
 
 import path_utils
 

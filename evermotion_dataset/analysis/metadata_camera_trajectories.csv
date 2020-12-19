@@ -34,7 +34,7 @@ ai_003_001_cam_01,ai_003_001@scene_cam_01_geometry,large,ai_003_001@scene_cam_01
 ai_003_002_cam_00,ai_003_002@scene_cam_00_geometry,large,ai_003_002@scene_cam_00_pre,2xlarge,ai_003_002@scene_cam_00_final,9xlarge,Living room,,
 ai_003_002_cam_01,ai_003_002@scene_cam_01_geometry,large,ai_003_002@scene_cam_01_pre,2xlarge,ai_003_002@scene_cam_01_final,9xlarge,Living room,,
 ai_003_003_cam_00,ai_003_003@scene_cam_00_geometry,large,ai_003_003@scene_cam_00_pre,2xlarge,ai_003_003@scene_cam_00_final,9xlarge,Living room,Copyrighted material (image on TV; poster on wall),
-ai_003_003_cam_01,ai_003_003@scene_cam_01_geometry,large,ai_003_003@scene_cam_01_pre,2xlarge,ai_003_003@scene_cam_01_final,9xlarge,Living room,Copyrighted material (image on TV; poster on wall),
+ai_003_003_cam_01,ai_003_003@scene_cam_01_geometry,large,ai_003_003@scene_cam_01_pre,2xlarge,ai_003_003@scene_cam_01_final,9xlarge,OUTSIDE VIEWING AREA (BAD INITIALIZATION),,
 ai_003_004_cam_00,ai_003_004@scene_cam_00_geometry,large,ai_003_004@scene_cam_00_pre,2xlarge,ai_003_004@scene_cam_00_final,9xlarge,Bedroom,,
 ai_003_004_cam_01,ai_003_004@scene_cam_01_geometry,large,ai_003_004@scene_cam_01_pre,2xlarge,ai_003_004@scene_cam_01_final,9xlarge,Bedroom,,
 ai_003_005_cam_00,ai_003_005@scene_cam_00_geometry,large,ai_003_005@scene_cam_00_pre,2xlarge,ai_003_005@scene_cam_00_final,9xlarge,Other,Pool (indoor),
