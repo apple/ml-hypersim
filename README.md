@@ -25,7 +25,7 @@ If you find the Hypersim Dataset or the Hypersim Toolkit useful in your research
 To obtain our image dataset, you can run the following download script. On Windows, you'll need to modify the script so it doesn't depend on the `wget` and `unzip` command-line utilities.
 
 ```
-python code/tools/python/dataset_download_images.py --downloads_dir /Volumes/portable_hard_drive/downloads --decompress_dir /Volumes/portable_hard_drive/evermotion_dataset/scenes
+python code/python/tools/dataset_download_images.py --downloads_dir /Volumes/portable_hard_drive/downloads --decompress_dir /Volumes/portable_hard_drive/evermotion_dataset/scenes
 ```
 
 Note that our dataset is roughly 1.9TB. We have partitioned the dataset into a few hundred separate ZIP files, where each ZIP file is between 1GB and 20GB. Our [download script](code/python/tools/dataset_download_images.py) contains the URLs for each ZIP file. Note also that we manually excluded images containing people and prominent logos from our public release, and therefore our public release contains 74,619 images, rather than 77,400 images. We list all the images we manually excluded in `hypersim/evermotion_dataset/analysis/metadata_images.csv`.
