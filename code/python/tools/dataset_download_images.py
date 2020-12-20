@@ -14,12 +14,6 @@ parser.add_argument("--downloads_dir", required=True)
 parser.add_argument("--decompress_dir")
 args = parser.parse_args()
 
-if args.decompress_dir is not None:
-    import path_utils
-    path_utils.add_path_to_sys_path("..", mode="relative_to_current_source_dir", frame=inspect.currentframe())
-    import _system_config
-    assert _system_config.decompress_bin != ""
-
 
 
 print("[HYPERSIM: DATASET_DOWNLOAD_IMAGES] Begin...")
@@ -49,9 +43,7 @@ def download(url, downloads_dir, decompress_dir):
     download_file = os.path.join(downloads_dir, download_name)
 
     if decompress_dir is not None:
-        cmd = _system_config.decompress_bin + \
-            " x " + download_file + \
-            " -o" + decompress_dir
+        cmd = "unzip " + download_file + " -d " + decompress_dir
         print("")
         print(cmd)
         print("")

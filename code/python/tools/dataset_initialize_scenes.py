@@ -103,8 +103,8 @@ for s in scenes:
         print("[HYPERSIM: DATASET_INITIALIZE_SCENES] Extracting " + in_file + "...")
 
         cmd = _system_config.decompress_bin + \
-            " x " + in_file + \
-            " -o" + scene_asset_dir
+            " x " + '"' + in_file + '"' \
+            " -o" + '"' + scene_asset_dir + '"'
         print("")
         print(cmd)
         print("")
