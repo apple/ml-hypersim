@@ -22,7 +22,7 @@ If you find the Hypersim Dataset or the Hypersim Toolkit useful in your research
 &nbsp;
 ## Downloading the Hypersim Dataset
 
-To obtain our image dataset, you can run the following download script.
+To obtain our image dataset, you can run the following download script. On Windows, you'll need to modify the script so it doesn't depend on the `wget` and `unzip` command-line utilities.
 
 ```
 python code/tools/python/dataset_download_images.py --downloads_dir /Volumes/portable_hard_drive/downloads --decompress_dir /Volumes/portable_hard_drive/evermotion_dataset/scenes
