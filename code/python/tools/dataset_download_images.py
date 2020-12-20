@@ -32,15 +32,15 @@ else:
 
 def download(url, downloads_dir, decompress_dir):
 
-    cmd = "wget -P " + downloads_dir + " " + url
+    download_name = os.path.basename(url)
+    download_file = os.path.join(downloads_dir, download_name)
+
+    cmd = "curl " + url + " --output " + download_file
     print("")
     print(cmd)
     print("")
     retval = os.system(cmd)
     assert retval == 0
-
-    download_name = os.path.basename(url)
-    download_file = os.path.join(downloads_dir, download_name)
 
     if decompress_dir is not None:
         cmd = "unzip " + download_file + " -d " + decompress_dir
