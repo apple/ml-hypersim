@@ -3,10 +3,7 @@
 # Copyright (C) 2020 Apple Inc. All Rights Reserved.
 #
 
-from pylab import *
-
 import argparse
-import inspect
 import os
 
 parser = argparse.ArgumentParser()
