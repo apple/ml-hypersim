@@ -12,7 +12,7 @@ _You need to create a `01_marketplace_dataset/downloads` directory, and manually
 
 To complete this tutorial example, we execute the following command-line tools. See below for additional details on each tool.
 
-_You must substitute your own `replace_new_path` and `dataset_dir_when_rendering` when executing these tools, and they must be absolute paths._
+_You must substitute your own `replace_old_path`, `replace_new_path`, and `dataset_dir_when_rendering` when executing these tools, and they must be absolute paths._
 
 ```
 # pre-processing
@@ -158,22 +158,22 @@ my_dataset
 
 `my_dataset/_asset` is a directory containing any native asset files that are shared across the dataset.
 
-`my_dataset/my_scene_N/_detail/_asset_export/cam_my_camera_X.csv` contains a camera trajectory for the camera named `cam_my_camera_X`. See `hypersim/code/python/tools/scene_generate_camera_trajectories_asset_export.py` for more details on the expected format of this CSV file.
+`my_dataset/my_scene_N/_asset_export/cam_my_camera_X.csv` contains a camera trajectory for the camera named `cam_my_camera_X`. See `hypersim/code/python/tools/scene_generate_camera_trajectories_asset_export.py` for more details on the expected format of this CSV file.
 
-`my_dataset/my_scene_N/_detail/_asset_export/scene.obj` is a standard OBJ file that represents the scene.
+`my_dataset/my_scene_N/_asset_export/scene.obj` is a standard OBJ file that represents the scene.
 
-`my_dataset/my_scene_N/_detail/_asset_export/scene.vrscene` is a V-Ray Standalone scene description file that represents the scene.
+`my_dataset/my_scene_N/_asset_export/scene.vrscene` is a V-Ray Standalone scene description file that represents the scene.
 
-`my_dataset/my_scene_N/_detail/_asset_export/metadata_cameras_asset_export.csv` contains a list of exported camera names. See `hypersim/code/python/tools/scene_generate_camera_trajectories_asset_export.py` for more details on the expected format of this CSV file.
+`my_dataset/my_scene_N/_asset_export/metadata_cameras_asset_export.csv` contains a list of exported camera names. See `hypersim/code/python/tools/scene_generate_camera_trajectories_asset_export.py` for more details on the expected format of this CSV file.
 
 ### Replacing Windows paths
 
 Exported vrscene files typically contain absolute Windows paths. These paths will not be valid if we are executing most of this tutorial example on macOS, but using a Windows computer to export vrscenes. Therefore, we need to replace the Windows paths with their macOS equivalents.
 
-_You must substitute your own `replace_new_path` when executing this tool and it must be an absolute path._
+_You must substitute your own `replace_old_path` and `replace_new_path` when executing this tool and it must be an absolute path._
 
 ```
-python ../../code/python/tools/modify_vrscene_replace_paths.py --in_file scenes/ai_001_001/_detail/asset_export/scene.vrscene --out_file scenes/ai_001_001/_detail/asset_export/scene.vrscene --replace_old_path C:\\Users\\mike_roberts2\\code\\github\\hypersim\\examples\\01_marketplace_dataset --replace_new_path /Users/mike/code/github/hypersim/examples/01_marketplace_dataset
+python ../../code/python/tools/modify_vrscene_replace_paths.py --in_file scenes/ai_001_001/_asset_export/scene.vrscene --out_file scenes/ai_001_001/_asset_export/scene.vrscene --replace_old_path C:\\Users\\mike_roberts2\\code\\github\\hypersim\\examples\\01_marketplace_dataset --replace_new_path /Users/mike/code/github/hypersim/examples/01_marketplace_dataset
 ```
 
 The command-line parameters to this tool are as follows.
