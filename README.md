@@ -32,7 +32,7 @@ Note that our dataset is roughly 1.9TB. We have partitioned the dataset into a f
 
 Note also that we manually excluded images containing people and prominent logos from our public release, and therefore our public release contains 74,619 images, rather than 77,400 images. We list all the images we manually excluded in `hypersim/evermotion_dataset/analysis/metadata_images.csv`.
 
-To obtain the ground truth triangle meshes for each scene, you must purchase the assets files [here](https://www.turbosquid.com/Search/3D-Models?include_artist=evermotion).
+To obtain the ground truth triangle meshes for each scene, you must purchase the asset files [here](https://www.turbosquid.com/Search/3D-Models?include_artist=evermotion).
 
 &nbsp;
 ## Working with the Hypersim Dataset
