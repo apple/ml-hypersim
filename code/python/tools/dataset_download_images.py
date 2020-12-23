@@ -9,6 +9,7 @@ import os
 parser = argparse.ArgumentParser()
 parser.add_argument("--downloads_dir", required=True)
 parser.add_argument("--decompress_dir")
+parser.add_argument("--remove_decompressed_archives", action="store_true")
 args = parser.parse_args()
 
 
@@ -22,6 +23,7 @@ if not os.path.exists(args.downloads_dir): os.makedirs(args.downloads_dir)
 if args.decompress_dir is not None:
     if not os.path.exists(args.decompress_dir): os.makedirs(args.decompress_dir)
     decompress_dir = args.decompress_dir
+    remove_decompressed_archives = args.remove_decompressed_archives
 else:
     decompress_dir = None
 
@@ -46,6 +48,13 @@ def download(url, downloads_dir, decompress_dir):
         print("")
         retval = os.system(cmd)
         assert retval == 0
+        if remove_decompressed_archives:
+            cmd = "rm " + download_file
+            print("")
+            print(cmd)
+            print("")
+            retval = os.system(cmd)
+            assert retval == 0
 
 
 
