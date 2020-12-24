@@ -9,7 +9,7 @@ import os
 parser = argparse.ArgumentParser()
 parser.add_argument("--downloads_dir", required=True)
 parser.add_argument("--decompress_dir")
-parser.add_argument("--delete_archive_after_decompress", action="store_true")
+parser.add_argument("--delete_archive_after_decompression", action="store_true")
 args = parser.parse_args()
 
 print("[HYPERSIM: DATASET_DOWNLOAD_IMAGES] Begin...")
@@ -38,7 +38,7 @@ def download(url):
         print("")
         retval = os.system(cmd)
         assert retval == 0
-        if args.remove_decompressed_archives:
+        if args.delete_archive_after_decompression:
             cmd = "rm " + download_file
             print("")
             print(cmd)
