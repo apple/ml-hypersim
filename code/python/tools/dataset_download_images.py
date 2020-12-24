@@ -9,7 +9,7 @@ import os
 parser = argparse.ArgumentParser()
 parser.add_argument("--downloads_dir", required=True)
 parser.add_argument("--decompress_dir")
-parser.add_argument("--delete_archive_after_decompression", action="store_true")
+parser.add_argument("--delete_archive_after_decompress", action="store_true")
 args = parser.parse_args()
 
 
