@@ -12,12 +12,17 @@ parser.add_argument("--decompress_dir")
 parser.add_argument("--delete_archive_after_decompression", action="store_true")
 args = parser.parse_args()
 
+
+
 print("[HYPERSIM: DATASET_DOWNLOAD_IMAGES] Begin...")
+
+
 
 if not os.path.exists(args.downloads_dir): os.makedirs(args.downloads_dir)
 
 if args.decompress_dir is not None:
     if not os.path.exists(args.decompress_dir): os.makedirs(args.decompress_dir)
+
 
 
 def download(url):
