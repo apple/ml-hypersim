@@ -52,6 +52,7 @@ def download(url):
             assert retval == 0
 
 
+
 urls_to_download = [
     "https://docs-assets.developer.apple.com/ml-research/datasets/hypersim/v1/scenes/ai_001_001.zip",
     "https://docs-assets.developer.apple.com/ml-research/datasets/hypersim/v1/scenes/ai_001_002.zip",
