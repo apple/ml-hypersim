@@ -562,19 +562,19 @@ def download_files(args):
             )
 
             if args.list:
-                print(entry.filename)
-                continue
-
-            if contains_all_words:
-                if os.path.isfile(path) and not args.overwrite:
-                    print("File already exists:", path)
-                else:
-                    print("Downloading:", path)
-
-                    z.extract(entry.filename, args.directory)
+                if contains_all_words:
+                    print(entry.filename)
             else:
-                if not args.silent:
-                    print("Skipping:", path)
+                if contains_all_words:
+                    if os.path.isfile(path) and not args.overwrite:
+                        print("File already exists:", path)
+                    else:
+                        print("Downloading:", path)
+
+                        z.extract(entry.filename, args.directory)
+                else:
+                    if not args.silent:
+                        print("Skipping:", path)
 
 
 def main():
