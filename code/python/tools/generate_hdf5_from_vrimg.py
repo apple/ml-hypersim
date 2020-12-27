@@ -434,7 +434,7 @@ for in_filename in in_filenames:
         atmosphere         = dstack([vray_atmosphere_r,         vray_atmosphere_g,         vray_atmosphere_b])
         background         = dstack([vray_background_r,         vray_background_g,         vray_background_b])
 
-        residual = residual = reflection + refraction + specular + sss2 + self_illumination + caustics + atmosphere + background
+        residual = reflection + refraction + specular + sss2 + self_illumination + caustics + atmosphere + background
 
         total_lighting_ = diffuse_filter*raw_total_lighting
         rgb_color_      = total_lighting_ + residual
