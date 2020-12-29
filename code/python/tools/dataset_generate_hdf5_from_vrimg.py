@@ -19,6 +19,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument("--dataset_dir", required=True)
 parser.add_argument("--scene_names")
 parser.add_argument("--camera_names")
+parser.add_argument("--frames")
 parser.add_argument("--render_pass")
 parser.add_argument("--n_jobs", type=int)
 parser.add_argument("--denoise", action="store_true")
@@ -85,7 +86,11 @@ def process_scene(s, args):
 
         if args.render_pass is None or args.render_pass == "geometry":
 
-            in_vrimg_files           = '"' + os.path.abspath(os.path.join(images_dir, in_scene_fileroot + "_" + camera_name + "_geometry", "*.vrimg")) + '"'
+            if args.frames is not None:
+                in_vrimg_files = '"' + os.path.abspath(os.path.join(images_dir, in_scene_fileroot + "_" + camera_name + "_geometry", "frame." + args.frames + ".vrimg")) + '"'
+            else:
+                in_vrimg_files = '"' + os.path.abspath(os.path.join(images_dir, in_scene_fileroot + "_" + camera_name + "_geometry", "frame.*.vrimg")) + '"'
+
             in_camera_trajectory_dir = os.path.abspath(os.path.join(detail_dir, camera_name))
             in_metadata_nodes_file   = os.path.abspath(os.path.join(detail_dir, "metadata_nodes.csv"))
             in_metadata_scene_file   = os.path.abspath(os.path.join(detail_dir, "metadata_scene.csv"))
@@ -121,7 +126,11 @@ def process_scene(s, args):
 
         if args.render_pass is None or args.render_pass == "final":
             
-            in_vrimg_files  = '"' + os.path.abspath(os.path.join(images_dir, in_scene_fileroot + "_" + camera_name + "_final", "*.vrimg")) + '"'
+            if args.frames is not None:
+                in_vrimg_files = '"' + os.path.abspath(os.path.join(images_dir, in_scene_fileroot + "_" + camera_name + "_final", "frame." + args.frames + ".vrimg")) + '"'
+            else:
+                in_vrimg_files = '"' + os.path.abspath(os.path.join(images_dir, in_scene_fileroot + "_" + camera_name + "_final", "frame.*.vrimg")) + '"'
+
             out_hdf5_dir    = os.path.abspath(os.path.join(images_dir, in_scene_fileroot + "_" + camera_name + "_final_hdf5"))
             out_preview_dir = os.path.abspath(os.path.join(images_dir, in_scene_fileroot + "_" + camera_name + "_final_preview"))
             tmp_dir_        = os.path.abspath(tmp_dir)

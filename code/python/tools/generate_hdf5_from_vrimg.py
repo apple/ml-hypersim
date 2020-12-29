@@ -328,14 +328,26 @@ for in_filename in in_filenames:
         with h5py.File(out_normal_bump_cam_hdf5_file,   "w") as f: f.create_dataset("dataset", data=normal_bump_cam.astype(float16),   compression="gzip", compression_opts=9)
         with h5py.File(out_tex_coord_hdf5_file,         "w") as f: f.create_dataset("dataset", data=tex_coord.astype(float16),         compression="gzip", compression_opts=9)
 
+        eps = 0.000001 # amount of numerical slack when checking if normal images are in the range [0,1]
+        assert all(np.min(normal_world_.reshape(-1,3),      axis=0)) > 0.0 - eps
+        assert all(np.min(normal_cam_.reshape(-1,3),        axis=0)) > 0.0 - eps
+        assert all(np.min(normal_bump_world_.reshape(-1,3), axis=0)) > 0.0 - eps
+        assert all(np.min(normal_bump_cam_.reshape(-1,3),   axis=0)) > 0.0 - eps
+        assert all(np.max(normal_world_.reshape(-1,3),      axis=0)) < 1.0 + eps
+        assert all(np.max(normal_cam_.reshape(-1,3),        axis=0)) < 1.0 + eps
+        assert all(np.max(normal_bump_world_.reshape(-1,3), axis=0)) < 1.0 + eps
+        assert all(np.max(normal_bump_cam_.reshape(-1,3),   axis=0)) < 1.0 + eps
+
+        # ideally we would normalize depth consistently for each scene, but we don't know a good depth range, so don't try to normalize
+        # normals are already unit-length, but due to occasional numerical artifacts we need to clip anyway
         imsave(out_color_jpg_file,             clip(rgb_color,0,1))
         imsave(out_gamma_jpg_file,             clip(rgb_color_gamma,0,1))
         imsave(out_render_entity_id_png_file,  render_entity_id_, vmin=np.min(color_vals_unique), vmax=np.max(color_vals_unique))
-        imsave(out_depth_meters_png_file,      depth_meters)        # ideally we would normalize depth consistently for each scene, but we don't know a good depth range, so don't try to normalize
-        imsave(out_normal_world_png_file,      normal_world_)       # normals are already unit-length so don't need to normalize
-        imsave(out_normal_cam_png_file,        normal_cam_)         # normals are already unit-length so don't need to normalize
-        imsave(out_normal_bump_world_png_file, normal_bump_world_)  # normals are already unit-length so don't need to normalize
-        imsave(out_normal_bump_cam_png_file,   normal_bump_cam_)    # normals are already unit-length so don't need to normalize
+        imsave(out_depth_meters_png_file,      depth_meters)
+        imsave(out_normal_world_png_file,      clip(normal_world_,0,1))
+        imsave(out_normal_cam_png_file,        clip(normal_cam_,0,1))
+        imsave(out_normal_bump_world_png_file, clip(normal_bump_world_,0,1))
+        imsave(out_normal_bump_cam_png_file,   clip(normal_bump_cam_,0,1))
         imsave(out_tex_coord_png_file,         clip(tex_coord,0,1))
 
     if args.render_pass == "final":
