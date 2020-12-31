@@ -30,7 +30,7 @@ python code/python/tools/dataset_download_images.py --downloads_dir /Volumes/por
 
 Note that our dataset is roughly 1.9TB. We have partitioned the dataset into a few hundred separate ZIP files, where each ZIP file is between 1GB and 20GB. Our [download script](code/python/tools/dataset_download_images.py) contains the URLs for each ZIP file. [Thomas Germer](https://github.com/99991) has generously contributed an [alternative download script](contrib/99991) that can be used to download subsets of files from within each ZIP archive.
 
-Note also that we manually excluded images containing people and prominent logos from our public release, and therefore our public release contains 74,619 images, rather than 77,400 images. We list all the images we manually excluded in `hypersim/evermotion_dataset/analysis/metadata_images.csv`.
+Note also that we manually excluded images containing people and prominent logos from our public release, and therefore our public release contains 74,619 images, rather than 77,400 images. We list all the images we manually excluded in `ml-hypersim/evermotion_dataset/analysis/metadata_images.csv`.
 
 To obtain the ground truth triangle meshes for each scene, you must purchase the asset files [here](https://www.turbosquid.com/Search/3D-Models?include_artist=evermotion).
 
@@ -90,7 +90,7 @@ Images for each camera trajectory are stored as lossless high-dynamic range HDF5
 color == (diffuse_reflectance * diffuse_illumination) + residual
 ```
 
-Note that the `color`, `diffuse_illumination`, `diffuse_reflectance`, and `residual` images do not have any tonemapping applied to them. In order to use these images for downstream learning tasks, we recommend applying your own tonemapping operator to the images. We implement a simple tonemapping operator in `hypersim/code/python/tools/scene_generate_images_tonemap.py`.
+Note that the `color`, `diffuse_illumination`, `diffuse_reflectance`, and `residual` images do not have any tonemapping applied to them. In order to use these images for downstream learning tasks, we recommend applying your own tonemapping operator to the images. We implement a simple tonemapping operator in `ml-hypersim/code/python/tools/scene_generate_images_tonemap.py`.
 
 ### Lossy preview images
 
@@ -104,9 +104,9 @@ Each camera trajectory is stored as a dense list of camera poses in the followin
 
 `camera_keyframe_positions.hdf5` contains an Nx3 array of camera positions, where N is the number of camera keyframes, and each position is stored in [x,y,z] order.
 
-We recommend browsing through `hypersim/code/python/tools/scene_generate_images_bounding_box.py` to better understand our camera pose conventions. In this file, we generate an image that has per-object 3D bounding boxes overlaid on top of a previously rendered image. This process involves loading a previously rendered image, loading the appropriate camera pose for that image, forming the appropriate projection matrix, and projecting the world-space corners of each bounding box into the image.
+We recommend browsing through `ml-hypersim/code/python/tools/scene_generate_images_bounding_box.py` to better understand our camera pose conventions. In this file, we generate an image that has per-object 3D bounding boxes overlaid on top of a previously rendered image. This process involves loading a previously rendered image, loading the appropriate camera pose for that image, forming the appropriate projection matrix, and projecting the world-space corners of each bounding box into the image.
 
-The camera intrinsics for our images (i.e., equirectangular pinhole camera, 60 degree horizontal field of view, square pixels) are defined globally in `hypersim/evermotion_dataset/_vray_user_params.py`
+The camera intrinsics for our images (i.e., equirectangular pinhole camera, 60 degree horizontal field of view, square pixels) are defined globally in `ml-hypersim/evermotion_dataset/_vray_user_params.py`
 
 ### 3D bounding boxes
 
@@ -120,11 +120,11 @@ We include a tight 9-DOF bounding box for each semantic instance, which we compu
 
 Our code can be used to compute other types of bounding boxes (e.g., axis-aligned bounding boxes in world space, minimum-volume bounding boxes in 3D), but we don't include these other types of bounding boxes in our public release.
 
-We recommend browsing through `hypersim/code/python/tools/scene_generate_images_bounding_box.py` to better understand our bounding box conventions. In this file, we generate an image that has per-object 3D bounding boxes overlaid on top of a previously rendered image. This process involves loading a previously rendered image, loading the appropriate bounding boxes for that scene, and projecting the world-space corners of each bounding box into the image.
+We recommend browsing through `ml-hypersim/code/python/tools/scene_generate_images_bounding_box.py` to better understand our bounding box conventions. In this file, we generate an image that has per-object 3D bounding boxes overlaid on top of a previously rendered image. This process involves loading a previously rendered image, loading the appropriate bounding boxes for that scene, and projecting the world-space corners of each bounding box into the image.
 
 ### Mesh annotations
 
-Our mesh annotations for each scene are checked in at `hypersim/evermotion_dataset/scenes/ai_VVV_NNN/_detail/mesh`, where `VVV` is the volume number and `NNN` is the scene number within the volume. The exported OBJ file for each scene (which can be obtained by purchasing the original scene assets) partitions each scene into a flat list of low-level "objects" (e.g., a chair leg, a door handle, etc). These low-level objects must be grouped together to form semantically meaningful entities. We manually group the low-level objects into semantically meaningful entities, and assign a semantic label to each entity, using our custom mesh annotation tool. We store our mesh annotation information in the following files.
+Our mesh annotations for each scene are checked in at `ml-hypersim/evermotion_dataset/scenes/ai_VVV_NNN/_detail/mesh`, where `VVV` is the volume number and `NNN` is the scene number within the volume. The exported OBJ file for each scene (which can be obtained by purchasing the original scene assets) partitions each scene into a flat list of low-level "objects" (e.g., a chair leg, a door handle, etc). These low-level objects must be grouped together to form semantically meaningful entities. We manually group the low-level objects into semantically meaningful entities, and assign a semantic label to each entity, using our custom mesh annotation tool. We store our mesh annotation information in the following files.
 
 `mesh_objects_si.hdf5` contains an array of length N, where N is the number of low-level objects in the exported OBJ file, and `mesh_objects_si[i]` is the NYU40 semantic label for the low-level object with `object_id == i`.
 
@@ -136,7 +136,7 @@ Our mesh annotations for each scene are checked in at `hypersim/evermotion_datas
 
 ### Rendering costs
 
-We include the cost of rendering each image in our dataset in `hypersim/evermotion_dataset/analysis/metadata_rendering_tasks.csv`. We include this rendering metadata so the marginal value and marginal cost of each image can be analyzed jointly in downstream applications.
+We include the cost of rendering each image in our dataset in `ml-hypersim/evermotion_dataset/analysis/metadata_rendering_tasks.csv`. We include this rendering metadata so the marginal value and marginal cost of each image can be analyzed jointly in downstream applications.
 
 In our pipeline, we divide rendering into 3 passes. Each rendering pass for each image in each camera trajectory corresponds to a particular "task", and the costs in `metadata_rendering_tasks.csv` are specified per task. To compute the total cost of rendering the image `frame.0000` in the camera trajectory `cam_00` in the scene `ai_001_001`, we add up the `vray_cost_dollars` and `cloud_cost_dollars` columns for the rows where `job_name == {ai_001_001@scene_cam_00_geometry, ai_001_001@scene_cam_00_pre, ai_001_001@scene_cam_00_final}` and `task_id == 0`.
 
@@ -233,15 +233,15 @@ export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:/Applications/ChaosGroup/V-Ray/AppSD
 
 Manually copy `vray.so` from the AppSDK directory so it is visible to your Python distribution.
 
-Manually copy the following files and subdirectories from the AppSDK `bin` directory to the `hypersim/code/python/tools` directory. For example,
+Manually copy the following files and subdirectories from the AppSDK `bin` directory to the `ml-hypersim/code/python/tools` directory. For example,
 
 ```
-cp /Applications/ChaosGroup/V-Ray/AppSDK/bin/libcgauth.dylib          /Users/mike/code/github/hypersim/code/python/tools
-cp /Applications/ChaosGroup/V-Ray/AppSDK/bin/libvray.dylib            /Users/mike/code/github/hypersim/code/python/tools
-cp /Applications/ChaosGroup/V-Ray/AppSDK/bin/libvrayopenimageio.dylib /Users/mike/code/github/hypersim/code/python/tools
-cp /Applications/ChaosGroup/V-Ray/AppSDK/bin/libvrayosl.dylib         /Users/mike/code/github/hypersim/code/python/tools
-cp /Applications/ChaosGroup/V-Ray/AppSDK/bin/libVRaySDKLibrary.dylib  /Users/mike/code/github/hypersim/code/python/tools
-cp -a /Applications/ChaosGroup/V-Ray/AppSDK/bin/plugins               /Users/mike/code/github/hypersim/code/python/tools
+cp /Applications/ChaosGroup/V-Ray/AppSDK/bin/libcgauth.dylib          /Users/mike/code/github/ml-hypersim/code/python/tools
+cp /Applications/ChaosGroup/V-Ray/AppSDK/bin/libvray.dylib            /Users/mike/code/github/ml-hypersim/code/python/tools
+cp /Applications/ChaosGroup/V-Ray/AppSDK/bin/libvrayopenimageio.dylib /Users/mike/code/github/ml-hypersim/code/python/tools
+cp /Applications/ChaosGroup/V-Ray/AppSDK/bin/libvrayosl.dylib         /Users/mike/code/github/ml-hypersim/code/python/tools
+cp /Applications/ChaosGroup/V-Ray/AppSDK/bin/libVRaySDKLibrary.dylib  /Users/mike/code/github/ml-hypersim/code/python/tools
+cp -a /Applications/ChaosGroup/V-Ray/AppSDK/bin/plugins               /Users/mike/code/github/ml-hypersim/code/python/tools
 ```
 
 You can verify that the V-Ray AppSDK is installed correctly by executing the following command-line tool.
@@ -258,11 +258,11 @@ If the V-Ray AppSDK is installed correctly, this tool will print out the followi
 
 ### Configuring the Hypersim Python tools for your system
 
-You need to rename `hypersim/code/python/_system_config.py.example -> _system_config.py`, and modify the paths contained in this file for your system.
+You need to rename `ml-hypersim/code/python/_system_config.py.example -> _system_config.py`, and modify the paths contained in this file for your system.
 
 ### Building the Hypersim C++ tools
 
-You need to rename `hypersim/code/cpp/system_config.inc.example -> system_config.inc`, and modify the paths contained in this file for your system. Then you need to build the Hypersim C++ tools. The easiest way to do this is to use the top-level makefile in `hypersim/code/cpp/tools`.
+You need to rename `ml-hypersim/code/cpp/system_config.inc.example -> system_config.inc`, and modify the paths contained in this file for your system. Then you need to build the Hypersim C++ tools. The easiest way to do this is to use the top-level makefile in `ml-hypersim/code/cpp/tools`.
 
 ```
 cd code/cpp/tools
@@ -288,16 +288,16 @@ make
 
 The Hypersim Low-Level Toolkit consists of the following Python command-line tools.
 
-- `hypersim/code/python/tools/generate_*.py`
-- `hypersim/code/python/tools/modify_vrscene_*.py`
+- `ml-hypersim/code/python/tools/generate_*.py`
+- `ml-hypersim/code/python/tools/modify_vrscene_*.py`
 
 The Hypersim High-Level Toolkit consists of the following Python command-line tools.
 
-- `hypersim/code/python/tools/dataset_*.py`
-- `hypersim/code/python/tools/scene_*.py`
-- `hypersim/code/python/tools/visualize_*.py`
+- `ml-hypersim/code/python/tools/dataset_*.py`
+- `ml-hypersim/code/python/tools/scene_*.py`
+- `ml-hypersim/code/python/tools/visualize_*.py`
 
-The Hypersim High-Level Toolkit also includes the Hypersim Scene Annotation Tool executable, which is located in the `hypersim/code/cpp/bin` directory, and can be launched from the command-line as follows.
+The Hypersim High-Level Toolkit also includes the Hypersim Scene Annotation Tool executable, which is located in the `ml-hypersim/code/cpp/bin` directory, and can be launched from the command-line as follows.
 
 ```
 cd code/cpp/bin
@@ -335,11 +335,11 @@ The `scene_names` argument works in the following way. We give each scene in our
 
 When preparing the Hypersim Dataset, we chose to manually exclude some scenes and automatically generated camera trajectories. Most of the scenes we excluded are simply commented out in our `_dataset_config.py` file, and therefore our pipeline never processes these scenes. However, for some scenes, we needed to run some of our pipeline in order to decide to exclude them. These scenes are un-commmented in our `dataset_config.py` file, and therefore our pipeline will process these scenes by default. There is no harm in running our pipeline for these scenes, but it is possible to save a bit of time and money by not rendering images for these manually excluded scenes and camera trajectories.
 
-The camera trajectories we manually excluded from our dataset are listed in `hypersim/evermotion_dataset/analysis/metadata_camera_trajectories.csv`. If the `Scene type` column is listed as `OUTSIDE VIEWING AREA (BAD INITIALIZATION)` or `OUTSIDE VIEWING AREA (BAD TRAJECTORY)`, then we consider that trajectory to be manually excluded from our dataset. If all the camera trajectories for a scene have been manually excluded, then we consider the scene to be manually excluded. We recommend excluding these scenes and camera trajectories in downstream learning applications for consistency with other publications, and to obtain the cleanest possible training data.
+The camera trajectories we manually excluded from our dataset are listed in `ml-hypersim/evermotion_dataset/analysis/metadata_camera_trajectories.csv`. If the `Scene type` column is listed as `OUTSIDE VIEWING AREA (BAD INITIALIZATION)` or `OUTSIDE VIEWING AREA (BAD TRAJECTORY)`, then we consider that trajectory to be manually excluded from our dataset. If all the camera trajectories for a scene have been manually excluded, then we consider the scene to be manually excluded. We recommend excluding these scenes and camera trajectories in downstream learning applications for consistency with other publications, and to obtain the cleanest possible training data.
 
 ### Using our mesh annotations
 
-Our mesh annotations for each scene are checked in at `hypersim/evermotion_dataset/scenes/ai_VVV_NNN/_detail/mesh`, where `VVV` is the volume number and `NNN` is the scene number within the volume. So, you can use our automatic pipeline to generate instance-level semantic segmentation images without needing to manually annotate any scenes.
+Our mesh annotations for each scene are checked in at `ml-hypersim/evermotion_dataset/scenes/ai_VVV_NNN/_detail/mesh`, where `VVV` is the volume number and `NNN` is the scene number within the volume. So, you can use our automatic pipeline to generate instance-level semantic segmentation images without needing to manually annotate any scenes.
 
 ### Running the full pipeline
 
