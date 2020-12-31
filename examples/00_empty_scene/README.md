@@ -65,7 +65,7 @@ A Hypersim camera trajectory consists of 4 files.
 
 `camera_keyframe_positions.hdf5` contains an Nx3 array of camera positions, where N is the number of camera keyframes, and each position is stored in [x,y,z] order.
 
-`camera_keyframe_orientations.hdf5` contains an Nx3x3 array of camera orientations, where N is the number of camera keyframes, and each orientation is represented as a 3x3 rotation matrix that maps points to world space from camera space, assuming that points are stored as [x,y,z] column vectors. The convention in the Hypersim Toolkit is that the camera's positive x axis points right, the positive y axis points up, and the positive z axis points away from where the camera is looking.
+`camera_keyframe_orientations.hdf5` contains an Nx3x3 array of camera orientations, where N is the number of camera keyframes, and each orientation is represented as a 3x3 rotation matrix that maps points to world-space from camera-space, assuming that points are stored as [x,y,z] column vectors. The convention in the Hypersim Toolkit is that the camera's positive x-axis points right, the positive y axis points up, and the positive z axis points away from where the camera is looking.
 
 `camera_keyframe_frame_indices.hdf5` contains an array of length N, where N is the number of camera keyframes. The Hypersim Toolkit allows users to specify camera keyframes in a sparse way, such that there can be more frames in a sequence of rendered images than there are keyframes. For example, you could specify keyframes at frames 0, 10, and 100. In this case, you would specify 3 different camera poses, and specify keyframe frame indicies of [0,10,100]. Camera poses are interpolated internally by V-Ray at all in-between frames.
 
@@ -82,7 +82,7 @@ python generate_camera_lens_distortion.py
 
 This script generates an identity distortion model, i.e., a distortion model that exactly mimics the case when lens distortion is turned off.
 
-The lens distortion model consists of a single file. In this tutorial example it is named `camera_lens_distortion.hdf5`. The file contains an RxCx3 array of rays in camera space. Each ray is stored in [x,y,z] order. The convention in the Hypersim Toolkit is that the top-left value in this array is the desired ray at the top-left corner of the top-left pixel in the rendered image. Likewise for the bottom-right value. All other rays are assumed to be evenly spaced in a grid pattern, relative to the underlying pixel grid. The ratio (R-1)/(C-1) must equal the ratio H/W, where H and W are the height and width of the rendered images in pixels.
+The lens distortion model consists of a single file. In this tutorial example it is named `camera_lens_distortion.hdf5`. The file contains an RxCx3 array of rays in camera-space. Each ray is stored in [x,y,z] order. The convention in the Hypersim Toolkit is that the top-left value in this array is the desired ray at the top-left corner of the top-left pixel in the rendered image. Likewise for the bottom-right value. All other rays are assumed to be evenly spaced in a grid pattern, relative to the underlying pixel grid. The ratio (R-1)/(C-1) must equal the ratio H/W, where H and W are the height and width of the rendered images in pixels.
 
 &nbsp;
 ## Adding the camera trajectory to a vrscene file
@@ -153,7 +153,7 @@ In order to specify the textured quads we would like to include in our scene, we
 
 `obj_len_y` is the vertical length of the quad in world units.
 
-`rotation_world_from_obj_00`, `rotation_world_from_obj_01`, ..., `rotation_world_from_obj_33` are the entries of the rotation matrix that maps points to world space from object space, assuming that points are stored as [x,y,z] column vectors. `rotation_world_from_obj_ij` is the entry at the ith row and the jth column of the rotation matrix. The convention used here is that the quad's positive x axis points from left to right, the positive y axis points from bottom to top, and the positive z axis points out of the image.
+`rotation_world_from_obj_00`, `rotation_world_from_obj_01`, ..., `rotation_world_from_obj_33` are the entries of the rotation matrix that maps points to world-space from object-space, assuming that points are stored as [x,y,z] column vectors. `rotation_world_from_obj_ij` is the entry at the _ith_ row and the _jth_ column of the rotation matrix. The convention used here is that the quad's positive x-axis points from left to right, the positive y-axis points from bottom to top, and the positive z-axis points out of the image.
 
 `translation_world_from_obj_x`, `translation_world_from_obj_y`, `translation_world_from_obj_z` is the position of the quad's lower left corner.
 
