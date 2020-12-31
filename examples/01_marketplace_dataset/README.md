@@ -212,9 +212,9 @@ After completing this step, our directory structure will look like this.
 
 ```
 my_dataset
-├── _asset
 ├── _dataset_config.py
 ├── _vray_user_params.py
+├── _asset
 └── scenes
     ├── my_scene_N
     │   ├── _asset
@@ -343,9 +343,9 @@ After completing this step, our directory structure will look like this.
 
 ```
 my_dataset
-├── _asset
 ├── _dataset_config.py
 ├── _vray_user_params.py
+├── _asset
 └── scenes
     ├── my_scene_N
     │   ├── _asset
@@ -353,30 +353,30 @@ my_dataset
     │   ├── _detail
     │   ├── images
     │   │   ├── scene
-    │   │   ├── scene_cam_X_geometry
-    │   │   ├── scene_cam_X_geometry_preview
-    │   │   ├── scene_cam_X_geometry_hdf5
-    │   │   ├── scene_cam_X_pre
     │   │   ├── scene_cam_X_final
-    │   │   ├── scene_cam_X_final_preview
     │   │   ├── scene_cam_X_final_hdf5
+    │   │   ├── scene_cam_X_final_preview
+    │   │   ├── scene_cam_X_geometry
+    │   │   ├── scene_cam_X_geometry_hdf5
+    │   │   ├── scene_cam_X_geometry_preview
+    │   │   ├── scene_cam_X_pre
     │   │   └── ...
     │   └── vrscenes
     │       ├── scene.vrscene
+    │       ├── scene_cam_X_final.vrscene
     │       ├── scene_cam_X_geometry.vrscene
     │       ├── scene_cam_X_pre.vrscene
-    │       ├── scene_cam_X_final.vrscene
     │       └── ...
     └── ...
 ```
 
 The directories in `my_dataset/scenes/my_scene_N/images` are empty, and are intended to store the rendering output of a particular camera trajectory and rendering pass. The preview directories contain JPG and PNG files that are useful for debugging, and the HDF5 directories contain 16-bit HDR images that are useful for downstream analysis.
 
+`my_dataset/scenes/my_scene_N/vrscenes/scene_cam_X_final.vrscene` is a vrscene file containing a particular camera trajectory, and is set up to render final high-quality images.
+
 `my_dataset/scenes/my_scene_N/vrscenes/scene_cam_X_geometry.vrscene` is a vrscene file containing a particular camera trajectory, and is set up to render geometry metadata images (e.g., per-pixel depth, per-pixel normals, etc).
 
 `my_dataset/scenes/my_scene_N/vrscenes/scene_cam_X_pre.vrscene` is a vrscene file containing a particular camera trajectory, and is set up to precompute a lighting solution used for final rendering.
-
-`my_dataset/scenes/my_scene_N/vrscenes/scene_cam_X_final.vrscene` is a vrscene file containing a particular camera trajectory, and is set up to render final high-quality images.
 
 &nbsp;
 ## Rendering the scene

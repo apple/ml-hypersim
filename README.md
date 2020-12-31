@@ -37,33 +37,54 @@ To obtain the ground truth triangle meshes for each scene, you must purchase the
 &nbsp;
 ## Working with the Hypersim Dataset
 
-The Hypersim Dataset consists of a collection of synthetic scenes. Each scene has a name of the form `ai_VVV_NNN` where `VVV` is the volume number, and `NNN` is the scene number within the volume. For each scene, there are one or more camera trajectories named {`cam_00`, `cam_01`, ...}. Each camera trajectories has one or more images named {`frame.0000`, `frame.0001`, ...}. Each scene is stored in its own ZIP file, and the following data modalities are available for each scene.
+The Hypersim Dataset consists of a collection of synthetic scenes. Each scene has a name of the form `ai_VVV_NNN` where `VVV` is the volume number, and `NNN` is the scene number within the volume. For each scene, there are one or more camera trajectories named {`cam_00`, `cam_01`, ...}. Each camera trajectory has one or more images named {`frame.0000`, `frame.0001`, ...}. Each scene is stored in its own ZIP file according to the following data layout.
+
+```
+ai_VVV_NNN
+├── _detail
+│   ├── metadata_cameras.csv                     # list of all the camera trajectories for this scene
+│   ├── metadata_node_strings.csv                # all human-readable strings in the definition of each each V-Ray "node"
+│   ├── metadata_nodes.csv                       # node-level metadata (establishes a correspondence between the object names in an exported OBJ file, and the V-Ray node IDs that are stored in our render_entity_id images)
+│   ├── metadata_scene.csv                       # scene-level metadata (includes the scale factor to convert asset units into meters)
+│   ├── cam_XX                                   # camera trajectory information
+│   │   ├── camera_keyframe_orientations.hdf5    # camera orientations
+│   │   └── camera_keyframe_positions.hdf5       # camera positions
+│   ├── ...
+│   └── mesh                                                                            # mesh information
+│       ├── mesh_objects_si.hdf5                                                        # stores the NYU40 semantic label for each "object ID" (checked into our public repository)
+│       ├── mesh_objects_sii.hdf5                                                       # stores the semantic instance ID for each "object ID" (checked into our public repository)
+│       ├── metadata_objects.csv                                                        # establishes a correspondence between the object names in an exported OBJ file, and the "object IDs" used for annotation (checked into our public repository)
+│       ├── metadata_scene_annotation_tool.log                                          # log of the time spent annotating each scene
+│       ├── metadata_semantic_instance_bounding_box_object_aligned_2d_extents.hdf5      # extent of the 3D bounding box for each semantic instance
+│       ├── metadata_semantic_instance_bounding_box_object_aligned_2d_orientations.hdf5 # orientation of the 3D bounding box for each semantic instance
+│       └── metadata_semantic_instance_bounding_box_object_aligned_2d_positions.hdf5    # position of the 3D bounding box for each semantic instance
+└── images
+    ├── scene_cam_XX_final_hdf5                  # lossless HDR image data that requires accurate shading
+    │   ├── frame.IIII.color.hdf5                # color image before any tonemapping has been applied
+    │   ├── frame.IIII.diffuse_illumination.hdf5 # diffuse illumination
+    │   ├── frame.IIII.diffuse_reflectance.hdf5  # diffuse reflectance (many authors refer to this modality as "albedo")
+    │   ├── frame.IIII.residual.hdf5             # non-diffuse residual
+    │   └── ...
+    ├── scene_cam_XX_final_preview               # preview images that are useful for debugging
+    ├── scene_cam_XX_geometry_hdf5               # lossless HDR image data that does not require accurate shading
+    │   ├── frame.IIII.depth_meters.hdf5         # Euclidean distance in meters from the surface sample at each pixel to the optical center of the camera
+    │   ├── frame.IIII.position.hdf5             # world-space positions in asset coordinates (not meters)
+    │   ├── frame.IIII.normal_cam.hdf5           # surface normals in camera space (ignores bump maps)
+    │   ├── frame.IIII.normal_world.hdf5         # surface normals in world space (ignores bump maps)
+    │   ├── frame.IIII.normal_bump_cam.hdf5.     # surface normals in camera space (takes bump maps into account)
+    │   ├── frame.IIII.normal_bump_world.hdf5    # surface normals in world space (takes bump maps into account)
+    │   ├── frame.IIII.render_entity_id.hdf5     # fine-grained segmentation where each V-Ray node has a unique ID
+    │   ├── frame.IIII.semantic.hdf5             # semantic IDs using NYU40 labels
+    │   ├── frame.IIII.semantic_instance.hdf5    # semantic instance IDs
+    │   ├── frame.IIII.tex_coord.hdf5            # texture coordinates
+    │   └── ...
+    ├── scene_cam_XX_geometry_preview            # preview images that are useful for debugging
+    └── ...
+```
 
 ### Lossless high-dynamic range images
 
-Images for each camera trajectory are stored as lossless high-dynamic range HDF5 files at the following locations within each ZIP file:
-
-```
-ai_VVV_NNN/images/scene_cam_XX_final_hdf5                                      # contains data modalities that require accurate shading
-ai_VVV_NNN/images/scene_cam_XX_final_hdf5/frame.IIII.color.hdf5                # color image before any tonemapping has been applied
-ai_VVV_NNN/images/scene_cam_XX_final_hdf5/frame.IIII.diffuse_illumination.hdf5 # diffuse illumination
-ai_VVV_NNN/images/scene_cam_XX_final_hdf5/frame.IIII.diffuse_reflectance.hdf5  # diffuse reflectance (some authors refer to this modality as albedo)
-ai_VVV_NNN/images/scene_cam_XX_final_hdf5/frame.IIII.residual.hdf5             # non-diffuse residual
-
-ai_VVV_NNN/images/scene_cam_XX_geometry_hdf5                                   # contains data modalities that do not require accurate shading
-ai_VVV_NNN/images/scene_cam_XX_geometry_hdf5/frame.IIII.depth_meters.hdf5      # Euclidean distance in meters from the surface sample at each pixel to the optical center of the camera
-ai_VVV_NNN/images/scene_cam_XX_geometry_hdf5/frame.IIII.position.hdf5          # world-space positions in asset coordinates (not meters)
-ai_VVV_NNN/images/scene_cam_XX_geometry_hdf5/frame.IIII.normal_cam.hdf5        # surface normals in camera space (ignores bump maps)
-ai_VVV_NNN/images/scene_cam_XX_geometry_hdf5/frame.IIII.normal_world.hdf5      # surface normals in world space (ignores bump maps)
-ai_VVV_NNN/images/scene_cam_XX_geometry_hdf5/frame.IIII.normal_bump_cam.hdf5.  # surface normals in camera space (takes bump maps into account)
-ai_VVV_NNN/images/scene_cam_XX_geometry_hdf5/frame.IIII.normal_bump_world.hdf5 # surface normals in world space (takes bump maps into account)
-ai_VVV_NNN/images/scene_cam_XX_geometry_hdf5/frame.IIII.render_entity_id.hdf5  # fine-grained segmentation where each render entity has a unique ID
-ai_VVV_NNN/images/scene_cam_XX_geometry_hdf5/frame.IIII.semantic.hdf5          # semantic IDs using NYU40 labels
-ai_VVV_NNN/images/scene_cam_XX_geometry_hdf5/frame.IIII.semantic_instance.hdf5 # semantic instance IDs
-ai_VVV_NNN/images/scene_cam_XX_geometry_hdf5/frame.IIII.tex_coord.hdf5         # texture coordinates
-```
-
-The `color`, `diffuse_illumination`, `diffuse_reflectance`, and `residual` images adhere (with very low error) to the following equation:
+Images for each camera trajectory are stored as lossless high-dynamic range HDF5 files. The `color`, `diffuse_illumination`, `diffuse_reflectance`, and `residual` images adhere (with very low error) to the following equation:
 
 ```
 color == (diffuse_reflectance * diffuse_illumination) + residual
@@ -73,26 +94,51 @@ Note that the `color`, `diffuse_illumination`, `diffuse_reflectance`, and `resid
 
 ### Lossy preview images
 
-Lossy preview images that are useful for debugging are stored at the following locations within each ZIP file:
-
-```
-ai_VVV_NNN/images/scene_cam_XX_final_preview    # contains preview images for data modalities that require accurate shading
-ai_VVV_NNN/images/scene_cam_XX_geometry_preview # contains preview images for data modalities that do not require accurate shading
-```
+We include lossy preview images that are useful for debugging. We do not recommend using these images in downstream learning tasks.
 
 ### Camera trajectories
 
-Each camera trajectory is stored as a dense list of camera poses at the following location within each ZIP file:
+Each camera trajectory is stored as a dense list of camera poses in the following files.
 
-```
-ai_VVV_NNN/_detail/cam_XX # each camera trajectory is stored in several HDF5 files (see scene_generate_images_bounding_box.py for details)
-```
+`camera_keyframe_orientations.hdf5` contains an Nx3x3 array of camera orientations, where N is the number of camera keyframes, and each orientation is represented as a 3x3 rotation matrix that maps points to world space from camera space, assuming that points are stored as [x,y,z] column vectors. The convention in the Hypersim Toolkit is that the camera's positive x axis points right, the positive y axis points up, and the positive z axis points away from where the camera is looking.
 
-We recommend browsing through `hypersim/code/python/tools/scene_generate_images_bounding_box.py` to understand our camera pose conventions. In this file, we generate an image that has per-object 3D bounding boxes overlaid on top of a previously rendered image. This process involves loading a previously rendered image, loading the appropriate camera pose for that image, forming the appropriate projection matrix, and projecting the world-space corners of each bounding box into the image.
+`camera_keyframe_positions.hdf5` contains an Nx3 array of camera positions, where N is the number of camera keyframes, and each position is stored in [x,y,z] order.
+
+We recommend browsing through `hypersim/code/python/tools/scene_generate_images_bounding_box.py` to better understand our camera pose conventions. In this file, we generate an image that has per-object 3D bounding boxes overlaid on top of a previously rendered image. This process involves loading a previously rendered image, loading the appropriate camera pose for that image, forming the appropriate projection matrix, and projecting the world-space corners of each bounding box into the image.
+
+The camera intrinsics for our images (i.e., equirectangular pinhole camera, 60 degree horizontal field of view, square pixels) are defined globally in `hypersim/evermotion_dataset/_vray_user_params.py`
 
 ### 3D bounding boxes
 
-We will include 9-DOF bounding boxes for each semantic instance in an upcoming release.
+We include a tight 9-DOF bounding box for each semantic instance, which we compute using the following algorithm. We always set the positive z axis of our bounding box to point up, i.e., to align with the world space gravity vector. We then compute the minimum-area bounding box of our semantic instance in the world space xy plane. Once we have computed our minimum-area bounding box, we have 4 possible choices for the positive x axis of our bounding box. To make our choice, we consider the vector from the bounding box's geometric center to the center-of-mass of the semantic instance's mesh vertices. We choose the direction (among our 4 possible choices) that most closely aligns with this vector as our positive x axis. We set the positive y axis to be our positive x axis rotated by +90 degrees in the xy plane.
+
+`metadata_semantic_instance_bounding_box_object_aligned_2d_extents.hdf5` contains an Nx3 array of lengths, where N is the number of semantic instances, and each row represents the length of the bounding box's dimensions stored in [x,y,z] order. These lengths are given in asset units.
+
+`metadata_semantic_instance_bounding_box_object_aligned_2d_orientations.hdf5` contains an Nx3x3 array of orientations, where N is the number of semantic instances, and each orientation is represented as a 3x3 rotation matrix that maps points to world space from object space, assuming that points are stored as [x,y,z] column vectors.
+
+`metadata_semantic_instance_bounding_box_object_aligned_2d_positions.hdf5` contains an Nx3 array of bounding box center positions, where N is the number of semantic instances, and each position is stored in [x,y,z] order.
+
+Our code can be used to compute other types of bounding boxes (e.g., axis-aligned bounding boxes in world space, minimum-volume bounding boxes in 3D), but we don't include these other types of bounding boxes in our public release.
+
+We recommend browsing through `hypersim/code/python/tools/scene_generate_images_bounding_box.py` to better understand our bounding box conventions. In this file, we generate an image that has per-object 3D bounding boxes overlaid on top of a previously rendered image. This process involves loading a previously rendered image, loading the appropriate bounding boxes for that scene, and projecting the world-space corners of each bounding box into the image.
+
+### Mesh annotations
+
+Our mesh annotations for each scene are checked in at `hypersim/evermotion_dataset/scenes/ai_VVV_NNN/_detail/mesh`, where `VVV` is the volume number and `NNN` is the scene number within the volume. The exported OBJ file for each scene (which can be obtained by purchasing the original scene assets) partitions each scene into a flat list of low-level "objects" (e.g., a chair leg, a door handle, etc). These low-level objects must be grouped together to form semantically meaningful entities. We manually group the low-level objects into semantically meaningful entities, and assign a semantic label to each entity, using our custom mesh annotation tool. We store our mesh annotation information in the following files.
+
+`mesh_objects_si.hdf5` contains an array of length N, where N is the number of low-level objects in the exported OBJ file, and `mesh_objects_si[i]` is the NYU40 semantic label for the low-level object with `object_id == i`.
+
+`mesh_objects_sii.hdf5` contains an array of length N, where N is the number of low-level objects in the exported OBJ file, and `mesh_objects_sii[i]` is the semantic instance ID for the low-level object with `object_id == i`.
+
+`metadata_objects.csv` contains N text entries, where N is the number of low-level objects in the exported OBJ file, and the _ith_ entry in this file is the object name for the low-level object with `object_id == i`. This file establishes a correspondence between the object names in the exported OBJ file, and the object IDs used as indices in `mesh_objects_si.hdf5` and `mesh_objects_sii.hdf5`.
+
+`metadata_scene_annotation_tool.log` contains a log of the time spent annotating each scene.
+
+### Rendering costs
+
+We include the cost of rendering each image in our dataset in `hypersim/evermotion_dataset/analysis/metadata_rendering_tasks.csv`. We include this rendering metadata so the marginal value and marginal cost of each image can be analyzed jointly in downstream applications.
+
+In our pipeline, we divide rendering into 3 passes. Each rendering pass for each image in each camera trajectory corresponds to a particular "task", and the costs in `metadata_rendering_tasks.csv` are specified per task. To compute the total cost of rendering the image `frame.0000` in the camera trajectory `cam_00` in the scene `ai_001_001`, we add up the `vray_cost_dollars` and `cloud_cost_dollars` columns for the rows where `job_name == {ai_001_001@scene_cam_00_geometry, ai_001_001@scene_cam_00_pre, ai_001_001@scene_cam_00_final}` and `task_id == 0`.
 
 &nbsp;
 # The Hypersim Toolkit
@@ -294,12 +340,6 @@ The camera trajectories we manually excluded from our dataset are listed in `hyp
 ### Using our mesh annotations
 
 Our mesh annotations for each scene are checked in at `hypersim/evermotion_dataset/scenes/ai_VVV_NNN/_detail/mesh`, where `VVV` is the volume number and `NNN` is the scene number within the volume. So, you can use our automatic pipeline to generate instance-level semantic segmentation images without needing to manually annotate any scenes.
-
-### Analyzing the value and cost of each image in downstream applications
-
-We include the cost of rendering each image in our dataset in `hypersim/evermotion_dataset/analysis/metadata_rendering_tasks.csv`. We include this rendering metadata so the marginal value and marginal cost of each image can be analyzed jointly in downstream applications.
-
-In our pipeline, we divide rendering into 3 passes. Each rendering pass for each image in each camera trajectory corresponds to a particular task, and the costs in `metadata_rendering_tasks.csv` are specified per task. To compute the total cost of the image `frame.0000` in the camera trajectory `cam_00` in the scene `ai_001_001`, we add up the `vray_cost_dollars` and `cloud_cost_dollars` columns for the rows where `job_name == {ai_001_001@scene_cam_00_geometry, ai_001_001@scene_cam_00_pre, ai_001_001@scene_cam_00_final}` and `task_id == 0`.
 
 ### Running the full pipeline
 
