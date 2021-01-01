@@ -55,7 +55,7 @@ ai_VVV_NNN
 │       ├── mesh_objects_sii.hdf5                                                       # stores the semantic instance ID for each object ID
 │       ├── metadata_objects.csv                                                        # object name for each object ID
 │       ├── metadata_scene_annotation_tool.log                                          # log of the time spent annotating each scene
-│       ├── metadata_semantic_instance_bounding_box_object_aligned_2d_extents.hdf5      # extent of the 3D bounding box for each semantic instance
+│       ├── metadata_semantic_instance_bounding_box_object_aligned_2d_extents.hdf5      # length of the 3D bounding box along each dimension for each semantic instance
 │       ├── metadata_semantic_instance_bounding_box_object_aligned_2d_orientations.hdf5 # orientation of the 3D bounding box for each semantic instance
 │       └── metadata_semantic_instance_bounding_box_object_aligned_2d_positions.hdf5    # position of the 3D bounding box for each semantic instance
 └── images
@@ -66,19 +66,21 @@ ai_VVV_NNN
     │   ├── frame.IIII.residual.hdf5             # non-diffuse residual
     │   └── ...
     ├── scene_cam_XX_final_preview               # preview images
+    |   └── ...
     ├── scene_cam_XX_geometry_hdf5               # lossless HDR image data that does not require accurate shading
-    │   ├── frame.IIII.depth_meters.hdf5         # Euclidean distance in meters to the optical center of the camera
+    │   ├── frame.IIII.depth_meters.hdf5         # Euclidean distances in meters to the optical center of the camera
     │   ├── frame.IIII.position.hdf5             # world-space positions in asset coordinates (not meters)
     │   ├── frame.IIII.normal_cam.hdf5           # surface normals in camera-space (ignores bump mapping)
     │   ├── frame.IIII.normal_world.hdf5         # surface normals in world-space (ignores bump mapping)
     │   ├── frame.IIII.normal_bump_cam.hdf5.     # surface normals in camera-space (takes bump mapping into account)
     │   ├── frame.IIII.normal_bump_world.hdf5    # surface normals in world-space (takes bump mapping into account)
     │   ├── frame.IIII.render_entity_id.hdf5     # fine-grained segmentation where each V-Ray node has a unique ID
-    │   ├── frame.IIII.semantic.hdf5             # semantic IDs (using NYU40 labels)
+    │   ├── frame.IIII.semantic.hdf5             # NYU40 semantic labels
     │   ├── frame.IIII.semantic_instance.hdf5    # semantic instance IDs
     │   ├── frame.IIII.tex_coord.hdf5            # texture coordinates
     │   └── ...
     ├── scene_cam_XX_geometry_preview            # preview images
+    |   └── ...
     └── ...
 ```
 
@@ -100,17 +102,17 @@ We include lossy preview images in `ai_VVV_NNN/images/scene_cam_XX_final_preview
 
 Each camera trajectory is stored as a dense list of camera poses in `ai_VVV_NNN/_detail/cam_XX` in the following files.
 
-`camera_keyframe_orientations.hdf5` contains an Nx3x3 array of camera orientations, where N is the number of frames in the trajectory, and each orientation is represented as a 3x3 rotation matrix that maps points to world-space from camera-space, assuming that points are stored as [x,y,z] column vectors. The convention in the Hypersim Toolkit is that the camera's positive x-axis points right, the positive y-axis points up, and the positive z-axis points away from where the camera is looking.
+`camera_keyframe_orientations.hdf5` contains an Nx3x3 array of camera orientations, where N is the number of frames in the trajectory, and each orientation is represented as a 3x3 rotation matrix that maps points to world-space from camera-space, assuming that points are stored as [x,y,z] column vectors. The convention in the Hypersim Dataset is that the camera's positive x-axis points right, the positive y-axis points up, and the positive z-axis points away from where the camera is looking.
 
 `camera_keyframe_positions.hdf5` contains an Nx3 array of camera positions, where N is the number of frames in the trajectory, and each position is stored in [x,y,z] order.
 
 The camera intrinsics for our images (i.e., equirectangular pinhole camera, 60 degree horizontal field-of-view, square pixels) are defined globally in `ml-hypersim/evermotion_dataset/_vray_user_params.py`.
 
-We recommend browsing through `ml-hypersim/code/python/tools/scene_generate_images_bounding_box.py` to better understand our camera pose conventions. In this file, we generate an image that has per-object 3D bounding boxes overlaid on top of a previously rendered image. This process involves loading a previously rendered image, loading the appropriate camera pose for that image, forming the appropriate projection matrix, and projecting the world-space corners of each bounding box into the image.
+We recommend browsing through `ml-hypersim/code/python/tools/scene_generate_images_bounding_box.py` to better understand our camera pose conventions. In this file, we generate an image that has per-instance 3D bounding boxes overlaid on top of a previously rendered image. This process involves loading a previously rendered image, loading the appropriate camera pose for that image, forming the appropriate projection matrix, and projecting the world-space corners of each bounding box into the image.
 
 ### 3D bounding boxes
 
-We include a tight 9-DOF bounding box for each semantic instance in `ai_VVV_NNN/_detail/mesh`. We represent each bounding box as a position, a rotation matrix, and the length of each bounding box dimension. We store this information in in the following files.
+We include a tight 9-DOF bounding box for each semantic instance in `ai_VVV_NNN/_detail/mesh`. We represent each bounding box as a position, a rotation matrix, and the length of each bounding box dimension. We store this information in the following files.
 
 `metadata_semantic_instance_bounding_box_object_aligned_2d_extents.hdf5` contains an Nx3 array of lengths, where N is the number of semantic instances, and each row represents the length of the each bounding box dimension stored in [x,y,z] order. These lengths are given in asset units.
 
@@ -118,15 +120,15 @@ We include a tight 9-DOF bounding box for each semantic instance in `ai_VVV_NNN/
 
 `metadata_semantic_instance_bounding_box_object_aligned_2d_positions.hdf5` contains an Nx3 array of bounding box center positions, where N is the number of semantic instances, and each position is stored in [x,y,z] order.
 
-We compute each bounding box's rotation matrix according to the following algorithm. We always set the positive z-axis of our rotation matrix to point up, i.e., to align with the world space gravity vector. We then compute a 2D minimum-area bounding box in the world-space xy-plane. Once we have computed our minimum-area bounding box, we have 4 possible choices for the positive x-axis of our rotation matrix. To make this choice, we consider the vector from the bounding box's geometric center to the center-of-mass of the points used to compute the bounding box. We choose the direction (among our 4 possible choices) that most closely aligns with this vector as the positive x-axis of our rotation matrix. Finally, we set the positive y-axis to be our positive x-axis rotated by +90 degrees in the world space xy-plane. This algorithm encourages that similar objects with semantically similar orientations will be assigned rotation matrices that are similar (i.e., the difference of their rotation matrices will have a small matrix norm).
+We compute each bounding box's rotation matrix according to the following algorithm. We always set the positive z-axis of our rotation matrix to point up, i.e., to align with the world-space gravity vector. We then compute a 2D minimum-area bounding box in the world-space xy-plane. Once we have computed our minimum-area bounding box, we have 4 possible choices for the positive x-axis of our rotation matrix. To make this choice, we consider the vector from the bounding box's geometric center to the center-of-mass of the points used to compute the bounding box. We choose the direction (among our 4 possible choices) that most closely aligns with this vector as the positive x-axis of our rotation matrix. Finally, we set the positive y-axis to be our positive x-axis rotated by +90 degrees in the world space xy-plane. This algorithm encourages that similar objects with semantically similar orientations will be assigned rotation matrices that are similar (i.e., the difference of their rotation matrices will have a small matrix norm).
 
 Our code can be used to compute other types of bounding boxes (e.g., axis-aligned, minimum-volume), but we don't include these other types of bounding boxes in our public release.
 
-We recommend browsing through `ml-hypersim/code/python/tools/scene_generate_images_bounding_box.py` to better understand our bounding box conventions. In this file, we generate an image that has per-object 3D bounding boxes overlaid on top of a previously rendered image. This process involves loading a previously rendered image, loading the appropriate bounding boxes for that image, and projecting the world-space corners of each bounding box into the image.
+We recommend browsing through `ml-hypersim/code/python/tools/scene_generate_images_bounding_box.py` to better understand our bounding box conventions. In this file, we generate an image that has per-instance 3D bounding boxes overlaid on top of a previously rendered image. This process involves loading a previously rendered image, loading the appropriate bounding boxes for that image, and projecting the world-space corners of each bounding box into the image.
 
 ### Mesh annotations
 
-We include our mesh annotations in `ml-hypersim/evermotion_dataset/scenes/ai_VVV_NNN/_detail/mesh`. The exported OBJ file for each scene (which can be obtained by purchasing the original scene assets) partitions each scene into a flat list of low-level "objects". We manually group these low-level objects into semantically meaningful entities, and assign an NYU40 semantic label to each entity, using our custom mesh annotation tool. We store our mesh annotation information in the following files.
+We include our mesh annotations in `ml-hypersim/evermotion_dataset/scenes/ai_VVV_NNN/_detail/mesh`. The exported OBJ file for each scene (which can be obtained by purchasing the original scene assets) partitions each scene into a flat list of low-level "objects". We manually group these low-level objects into semantically meaningful instances, and assign an NYU40 semantic label to each instance, using our custom mesh annotation tool. We store our mesh annotation information in the following files.
 
 `mesh_objects_si.hdf5` contains an array of length N, where N is the number of low-level objects in the exported OBJ file, and `mesh_objects_si[i]` is the NYU40 semantic label for the low-level object with `object_id == i`.
 
@@ -140,7 +142,7 @@ We include our mesh annotations in `ml-hypersim/evermotion_dataset/scenes/ai_VVV
 
 We include the cost of rendering each image in our dataset in `ml-hypersim/evermotion_dataset/analysis/metadata_rendering_tasks.csv`. We include this rendering metadata so the marginal value and marginal cost of each image can be analyzed jointly in downstream applications.
 
-In our pipeline, we divide rendering into 3 passes. Each rendering pass for each image in each camera trajectory corresponds to a particular "task", and the costs in `metadata_rendering_tasks.csv` are specified per task. To compute the total cost of rendering the image `frame.0000` in the camera trajectory `cam_00` in the scene `ai_001_001`, we add up the `vray_cost_dollars` and `cloud_cost_dollars` columns for the rows where `job_name is in {ai_001_001@scene_cam_00_geometry, ai_001_001@scene_cam_00_pre, ai_001_001@scene_cam_00_final}` and `task_id == 0`.
+In our pipeline, we divide rendering into 3 passes. Each rendering pass for each image in each camera trajectory corresponds to a particular rendering "task", and the costs in `metadata_rendering_tasks.csv` are specified per task. To compute the total cost of rendering the image `frame.0000` in the camera trajectory `cam_00` in the scene `ai_001_001`, we add up the `vray_cost_dollars` and `cloud_cost_dollars` columns for the rows where `job_name is in {ai_001_001@scene_cam_00_geometry, ai_001_001@scene_cam_00_pre, ai_001_001@scene_cam_00_final} and task_id == 0`.
 
 &nbsp;
 # The Hypersim Toolkit
