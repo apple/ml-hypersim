@@ -495,7 +495,9 @@ scenes.append({"name": "ai_037_008", "archive_file": "AI37_Scene_008.rar",      
 scenes.append({"name": "ai_037_009", "archive_file": "AI37_Scene_009.rar",                  "asset_file": os.path.join("Scene_009",                       "AI37_009"),                        "normalization_policy": "v0", "scene_extent_meters": 30.0,  "voxel_extent_meters": 0.1})
 scenes.append({"name": "ai_037_010", "archive_file": "AI37_Scene_010.rar",                  "asset_file": os.path.join("Scene_010",                       "AI37_010"),                        "normalization_policy": "v0", "scene_extent_meters": 30.0,  "voxel_extent_meters": 0.1})
 
-scenes.append({"name": "ai_038_001", "archive_file": "AI38_Scene_001.rar",                  "asset_file": os.path.join("Scene_001",                       "AI38_001"),                        "normalization_policy": "v0", "scene_extent_meters": 30.0,  "voxel_extent_meters": 0.1})
+# generate_merged_gi_files.py is very slow
+# scenes.append({"name": "ai_038_001", "archive_file": "AI38_Scene_001.rar",                  "asset_file": os.path.join("Scene_001",                       "AI38_001"),                        "normalization_policy": "v0", "scene_extent_meters": 30.0,  "voxel_extent_meters": 0.1})
+
 scenes.append({"name": "ai_038_002", "archive_file": "AI38_Scene_002.rar",                  "asset_file": os.path.join("Scene_002",                       "AI38_002"),                        "normalization_policy": "v0", "scene_extent_meters": 30.0,  "voxel_extent_meters": 0.1})
 scenes.append({"name": "ai_038_003", "archive_file": "AI38_Scene_003.rar",                  "asset_file": os.path.join("Scene_003",                       "AI38_003"),                        "normalization_policy": "v0", "scene_extent_meters": 30.0,  "voxel_extent_meters": 0.1})
 scenes.append({"name": "ai_038_004", "archive_file": "AI38_Scene_004.rar",                  "asset_file": os.path.join("Scene_004",                       "AI38_004"),                        "normalization_policy": "v0", "scene_extent_meters": 300.0, "voxel_extent_meters": 1.0})
