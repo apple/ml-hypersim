@@ -51,10 +51,10 @@ ai_VVV_NNN
 │   │   └── camera_keyframe_positions.hdf5       # camera positions (in asset coordinates)
 │   ├── ...
 │   └── mesh                                                                            # mesh information
-│       ├── mesh_objects_si.hdf5                                                        # NYU40 semantic label for each object ID
-│       ├── mesh_objects_sii.hdf5                                                       # semantic instance ID for each object ID
-│       ├── metadata_objects.csv                                                        # object name for each object ID
-│       ├── metadata_scene_annotation_tool.log                                          # log of the time spent annotating each scene
+│       ├── mesh_objects_si.hdf5                                                        # NYU40 semantic label for each object ID (available in our public code repository)
+│       ├── mesh_objects_sii.hdf5                                                       # semantic instance ID for each object ID (available in our public code repository)
+│       ├── metadata_objects.csv                                                        # object name for each object ID (available in our public code repository)
+│       ├── metadata_scene_annotation_tool.log                                          # log of the time spent annotating each scene (available in our public code repository)
 │       ├── metadata_semantic_instance_bounding_box_object_aligned_2d_extents.hdf5      # length (in asset units) of each dimension of the 3D bounding for each semantic instance ID
 │       ├── metadata_semantic_instance_bounding_box_object_aligned_2d_orientations.hdf5 # orientation of the 3D bounding box for each semantic instance ID
 │       └── metadata_semantic_instance_bounding_box_object_aligned_2d_positions.hdf5    # position (in asset coordinates) of the 3D bounding box for each semantic instance ID
