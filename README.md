@@ -84,6 +84,12 @@ ai_VVV_NNN
     └── ...
 ```
 
+### Dataset split
+
+We include a standard train/val/test split in `ml-hypersim/evermotion_dataset/analysis/metadata_images_split_scene_v1.csv`. We refer to this split as the _v1_ split of our dataset. We generated this split by randomly partitioning our data at the granularity of scenes, rather than images or camera trajectories, to minimize the probability of very similar images ending up in different partitions. In order to maximize reproducibilty, we only include publicly released images in our split.
+
+In the Hypersim dataset, there is a small amount of asset reuse across scenes. This asset reuse is difficult to detect by analyzing metadata in the original scene assets, but it is evident when manually browsing through our rendered images. We do not attempt to address this issue when generating our split. Therefore, individual objects in our training images are occasionally also present in our validation and test images.
+
 ### Coordinate conventions
 
 We store positions in _asset coordinates_ (and lengths in _asset units_) unless explicitly noted otherwise. By _asset coordinates_, we mean the coordinate system defined by the artist when they originally created the assets. In general, asset units are not the same as meters. To convert a distance in asset units to a distance in meters, use the `meters_per_asset_unit` scale factor defined in `ai_VVV_NNN/_detail/metadata_scene.csv`.
