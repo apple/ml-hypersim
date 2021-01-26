@@ -62,7 +62,7 @@ scene_type_hist_max_bin_center = len(scene_type_id_to_name_map)-1
 
 H, H_edges = histogram(scene_type_ids, bins=scene_type_hist_n_bins, range=(scene_type_hist_min_bin_center - 0.5, scene_type_hist_max_bin_center + 0.5))
 
-tick_label = [ scene_type_id_to_name_map[i] for i in sort(scene_type_id_to_name_map.keys()) ]
+tick_label = [ scene_type_id_to_name_map[i] for i in sort(list(scene_type_id_to_name_map.keys())) ]
 barh(arange(scene_type_hist_min_bin_center, scene_type_hist_max_bin_center+1), H, tick_label=tick_label)
 gca().invert_yaxis()
 title("Distribution of scene types")

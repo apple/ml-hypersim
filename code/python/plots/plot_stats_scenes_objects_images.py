@@ -275,7 +275,7 @@ ticks = [-12.0, -9.5, -7.0]
 
 # SCENES PER SCENE TYPE
 H, H_edges = histogram(scene_type_ids, bins=scene_type_hist_n_bins, range=(scene_type_hist_min_bin_center - 0.5, scene_type_hist_max_bin_center + 0.5))
-tick_label = [ scene_type_id_to_name_map[i] for i in sort(scene_type_id_to_name_map.keys()) ]
+tick_label = [ scene_type_id_to_name_map[i] for i in sort(list(scene_type_id_to_name_map.keys())) ]
 
 tick_label_black_list   = [ "OUTSIDE VIEWING AREA (BAD INITIALIZATION)", "OUTSIDE VIEWING AREA (BAD TRAJECTORY)" ]
 num_tick_labels_include = 10
@@ -297,7 +297,7 @@ xlabel("Frequency\n\n(a)")
 
 # UNIQUE OBJECTS PER CLASS
 H = unique_objects_per_class_hist
-tick_label = ["NO LABEL"] + [""] + [ semantic_id_to_name_map[i] for i in sort(semantic_id_to_name_map.keys()) ]
+tick_label = ["NO LABEL"] + [""] + [ semantic_id_to_name_map[i] for i in sort(list(semantic_id_to_name_map.keys())) ]
 
 tick_label_black_list   = ["NO LABEL", "", "wall", "floor", "ceiling"]
 num_tick_labels_include = 10
@@ -320,7 +320,7 @@ xlabel("Frequency\n\n(b)")
 # OBJECT VOLUME (LOG)
 
 # redefine number of bins and bin edges for visualization
-object_volume_hist_log_n_bins_    = object_volume_hist_log_n_bins/25
+object_volume_hist_log_n_bins_    = int(object_volume_hist_log_n_bins/25)
 object_volume_hist_log_bin_edges_ = logspace(object_volume_hist_log_min, object_volume_hist_log_max, object_volume_hist_log_n_bins_+1, base=object_volume_hist_log_base)
 
 H = object_volume_hist_log
@@ -338,7 +338,7 @@ xlim((1e-5,1e1))
 
 # PIXELS PER CLASS
 H = pixels_per_class_hist
-tick_label = [r"$\star$"] + [""] + [ semantic_id_to_name_map[i] for i in sort(semantic_id_to_name_map.keys()) ]
+tick_label = [r"$\star$"] + [""] + [ semantic_id_to_name_map[i] for i in sort(list(semantic_id_to_name_map.keys())) ]
 
 tick_label_black_list   = [""]
 num_tick_labels_include = 10
@@ -361,7 +361,7 @@ xlabel("Megapixels\n\n(d)")
 # UNIQUE OBJECTS PER IMAGE
 
 # redefine number of bins and bin edges for visualization
-unique_objects_per_image_hist_n_bins_    = unique_objects_per_image_hist_n_bins/5
+unique_objects_per_image_hist_n_bins_    = int(unique_objects_per_image_hist_n_bins/5)
 unique_objects_per_image_hist_bin_edges_ = linspace(0, unique_objects_per_image_hist_n_bins, unique_objects_per_image_hist_n_bins_+1)
 
 H = unique_objects_per_image_hist
@@ -390,7 +390,7 @@ xlim((0,20))
 # DEPTH (LOG)
 
 # redefine number of bins and bin edges for visualization
-depth_hist_log_n_bins_    = depth_hist_log_n_bins/20
+depth_hist_log_n_bins_    = int(depth_hist_log_n_bins/20)
 depth_hist_log_bin_edges_ = logspace(depth_hist_log_min, depth_hist_log_max, depth_hist_log_n_bins_+1, base=depth_hist_log_base)
 
 H = depth_hist_log
@@ -415,7 +415,7 @@ log_H = log(H_ + eps)
 log_H[normal_hist_bin_corners_abs_min_invalid_mask] = nan
 
 subplot(248)
-imshow(log_H, origin="bottom", extent=[-1,1,-1,1], interpolation="nearest", vmin=vmin, vmax=vmax)
+imshow(log_H, origin="lower", extent=[-1,1,-1,1], interpolation="nearest", vmin=vmin, vmax=vmax)
 cbar = colorbar(ticks=ticks)
 title("Distribution of\nsurface normals")
 xlabel(r"$x$" + "\n\n(h)")

@@ -36,9 +36,9 @@ for b in batch_dirs:
     df = pd.read_csv(metadata_labeling_time_csv_file)
 
     if labeling_time_seconds is None:
-        labeling_time_seconds = df.loc[df["scene_included_in_dataset"] == True]["labeling_time_seconds"].to_numpy()
+        labeling_time_seconds = df[df["scene_included_in_dataset"]]["labeling_time_seconds"].to_numpy()
     else:
-        labeling_time_seconds = r_[ labeling_time_seconds, df.loc[df["scene_included_in_dataset"] == True]["labeling_time_seconds"].to_numpy() ]
+        labeling_time_seconds = r_[ labeling_time_seconds, df[df["scene_included_in_dataset"]]["labeling_time_seconds"].to_numpy() ]
 
 
 

@@ -21,6 +21,7 @@ parser.add_argument("--scene_names")
 args = parser.parse_args()
 
 assert os.path.exists(args.dataset_dir)
+assert os.path.exists(args.analysis_dir)
 
 path_utils.add_path_to_sys_path(args.dataset_dir, mode="relative_to_cwd", frame=inspect.currentframe())
 import _dataset_config

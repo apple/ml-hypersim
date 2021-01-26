@@ -368,7 +368,7 @@ matplotlib.rcParams.update({'font.size': 14})
 # RGB COLOR
 
 # redefine number of bins and bin edges for visualization
-brightness_hist_log_n_bins_    = brightness_hist_log_n_bins/25
+brightness_hist_log_n_bins_    = int(brightness_hist_log_n_bins/25)
 brightness_hist_log_bin_edges_ = logspace(brightness_hist_log_min, brightness_hist_log_max, brightness_hist_log_n_bins_+1, base=brightness_hist_log_base)
 
 H = rgb_color_brightness_hist_log
@@ -386,7 +386,7 @@ ylim((0, 0.2))
 # DIFFUSE REFLECTANCE
 
 # redefine number of bins and bin edges for visualization
-brightness_hist_log_n_bins_    = brightness_hist_log_n_bins/25
+brightness_hist_log_n_bins_    = int(brightness_hist_log_n_bins/25)
 brightness_hist_log_bin_edges_ = logspace(brightness_hist_log_min, brightness_hist_log_max, brightness_hist_log_n_bins_+1, base=brightness_hist_log_base)
 
 H = diffuse_reflectance_brightness_hist_log
@@ -404,7 +404,7 @@ setp(gca().get_yticklabels(), visible=False)
 # DIFFUSE ILLUMINATION
 
 # redefine number of bins and bin edges for visualization
-brightness_hist_log_n_bins_    = brightness_hist_log_n_bins/25
+brightness_hist_log_n_bins_    = int(brightness_hist_log_n_bins/25)
 brightness_hist_log_bin_edges_ = logspace(brightness_hist_log_min, brightness_hist_log_max, brightness_hist_log_n_bins_+1, base=brightness_hist_log_base)
 
 H = diffuse_illumination_brightness_hist_log
@@ -422,7 +422,7 @@ setp(gca().get_yticklabels(), visible=False)
 # RESIDUAL
 
 # redefine number of bins and bin edges for visualization
-brightness_hist_log_n_bins_    = brightness_hist_log_n_bins/25
+brightness_hist_log_n_bins_    = int(brightness_hist_log_n_bins/25)
 brightness_hist_log_bin_edges_ = logspace(brightness_hist_log_min, brightness_hist_log_max, brightness_hist_log_n_bins_+1, base=brightness_hist_log_base)
 
 H = residual_brightness_hist_log

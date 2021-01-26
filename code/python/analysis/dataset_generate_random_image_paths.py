@@ -27,8 +27,8 @@ print("[HYPERSIM: DATASET_GENERATE_RANDOM_IMAGE_PATHS] Begin...")
 metadata_camera_trajectories_csv_file = os.path.join(args.analysis_dir, "metadata_camera_trajectories.csv")
 
 df = pd.read_csv(metadata_camera_trajectories_csv_file)
-df = df.loc[df["Scene type"] != "OUTSIDE VIEWING AREA (BAD TRAJECTORY)"]
-df = df.loc[df["Scene type"] != "OUTSIDE VIEWING AREA (BAD INITIALIZATION)"]
+df = df[df["Scene type"] != "OUTSIDE VIEWING AREA (BAD TRAJECTORY)"]
+df = df[df["Scene type"] != "OUTSIDE VIEWING AREA (BAD INITIALIZATION)"]
 df = df.reset_index(drop=True)
 camera_trajectories = df.to_records()
 
