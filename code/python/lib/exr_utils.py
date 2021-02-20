@@ -33,7 +33,8 @@ def load_exr_file(filename, tmp_dir):
     # print("")
     # print(cmd)
     # print("")
-    os.system(cmd)
+    retval = os.system(cmd)
+    assert retval == 0
 
     df_header   = pd.read_csv(tmp_output_header_csv_file)
     df_channels = pd.read_csv(tmp_output_channels_csv_file)

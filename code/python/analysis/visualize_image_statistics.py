@@ -414,7 +414,7 @@ print("[HYPERSIM: VISUALIZE_IMAGE_STATISTICS] %0.2f classes per image (mean)" % 
 # UNIQUE OBJECTS PER CLASS
 print("[HYPERSIM: VISUALIZE_IMAGE_STATISTICS] UNIQUE OBJECTS PER CLASS...")
 H = unique_objects_per_class_hist
-tick_label = ["NO LABEL"] + [""] + [ semantic_id_to_name_map[i] for i in sort(semantic_id_to_name_map.keys()) ]
+tick_label = ["NO LABEL"] + [""] + [ semantic_id_to_name_map[i] for i in sort(list(semantic_id_to_name_map.keys())) ]
 barh(arange(0, len(tick_label)), H, tick_label=tick_label)
 gca().invert_yaxis()
 title("Number of unique objects per class")
@@ -609,7 +609,7 @@ print("[HYPERSIM: VISUALIZE_IMAGE_STATISTICS] Total labeled pixels (any semantic
 print("[HYPERSIM: VISUALIZE_IMAGE_STATISTICS] Total labeled pixels (foreground semantic labels only): " + str(object_pixels)  + " / " + str(total_pixels) + " = " + str(float(object_pixels)/float(total_pixels)))
 
 H = pixels_per_class_hist
-tick_label = ["NO LABEL"] + [""] + [ semantic_id_to_name_map[i] for i in sort(semantic_id_to_name_map.keys()) ]
+tick_label = ["NO LABEL"] + [""] + [ semantic_id_to_name_map[i] for i in sort(list(semantic_id_to_name_map.keys())) ]
 barh(arange(0, len(tick_label)), H, tick_label=tick_label)
 gca().invert_yaxis()
 title("Number of pixels per class")

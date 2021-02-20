@@ -135,9 +135,15 @@ def load_obj_file(filename):
                     self._normals.append(vertex_normal)
 
                 elif values[0] == "vt":
-                    # HACK: we assume 3 texture coordinates are exported in the obj file, but only the first 2 are stored
-                    if len(values) == 4:
+                    if len(values) == 3:
                         try:
+                            vertex_texcoords = [float(values[1]), float(values[2])]
+                        except ValueError:
+                            print("[HYPERSIM: OBJ_FILE_UTILS] ERROR: Couldn't parse: " + " ".join(values))
+                            vertex_texcoords = [0.0,0.0]
+                    elif len(values) == 4:
+                        try:
+                            # HACK: in this case we assume 3 texture coordinates are exported in the obj file, but only the first 2 are stored
                             vertex_texcoords = [float(values[1]), float(values[2])]
                         except ValueError:
                             print("[HYPERSIM: OBJ_FILE_UTILS] ERROR: Couldn't parse: " + " ".join(values))
