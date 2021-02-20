@@ -92,7 +92,7 @@ In the Hypersim dataset, there is a small amount of asset reuse across scenes. T
 
 ### Coordinate conventions
 
-We store positions in _asset coordinates_ (and lengths in _asset units_) unless explicitly noted otherwise. By _asset coordinates_, we mean the coordinate system defined by the artist when they originally created the assets. In general, asset units are not the same as meters. To convert a distance in asset units to a distance in meters, use the `meters_per_asset_unit` scale factor defined in `ai_VVV_NNN/_detail/metadata_scene.csv`.
+We store positions in _asset coordinates_ (and lengths in _asset units_) unless explicitly noted otherwise. By _asset coordinates_, we mean the world-space coordinate system defined by the artist when they originally created the assets. In general, asset units are not the same as meters. To convert a distance in asset units to a distance in meters, use the `meters_per_asset_unit` scale factor defined in `ai_VVV_NNN/_detail/metadata_scene.csv`.
 
 We store orientations as 3x3 rotation matrices that map points to world-space from object-space, assuming that points are stored as [x,y,z] column vectors. Our convention for storing camera orientations is that the camera's positive x-axis points right, the positive y-axis points up, and the positive z-axis points away from where the camera is looking.
 
