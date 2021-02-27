@@ -60,7 +60,7 @@ ai_VVV_NNN
 │       └── metadata_semantic_instance_bounding_box_object_aligned_2d_positions.hdf5    # position (in asset coordinates) of the 3D bounding box for each semantic instance ID
 └── images
     ├── scene_cam_XX_final_hdf5                  # lossless HDR image data that requires accurate shading
-    │   ├── frame.IIII.color.hdf5                # color image before any tonemapping has been applied
+    │   ├── frame.IIII.color.hdf5                # color image before any tone mapping has been applied
     │   ├── frame.IIII.diffuse_illumination.hdf5 # diffuse illumination
     │   ├── frame.IIII.diffuse_reflectance.hdf5  # diffuse reflectance (many authors refer to this modality as "albedo")
     │   ├── frame.IIII.residual.hdf5             # non-diffuse residual
@@ -110,7 +110,7 @@ Our `color`, `diffuse_illumination`, `diffuse_reflectance`, and `residual` image
 color == (diffuse_reflectance * diffuse_illumination) + residual
 ```
 
-Note that our `color`, `diffuse_illumination`, `diffuse_reflectance`, and `residual` images do not have any tonemapping applied to them. In order to use these images for downstream learning tasks, we recommend applying your own tonemapping operator to the images. We implement a simple tonemapping operator in `ml-hypersim/code/python/tools/scene_generate_images_tonemap.py`.
+Note that our `color`, `diffuse_illumination`, `diffuse_reflectance`, and `residual` images do not have any tone mapping applied to them. In order to use these images for downstream learning tasks, we recommend applying your own tone mapping operator to the images. We implement a simple tone mapping operator in `ml-hypersim/code/python/tools/scene_generate_images_tonemap.py`.
 
 ### Lossy preview images
 

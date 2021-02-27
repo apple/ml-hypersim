@@ -438,7 +438,7 @@ The `dataset_render_scene.py` tool generates images in `my_dataset/scenes/my_sce
 &nbsp;
 ## Post-processing the rendering output (optional)
 
-After the rendering output has been generated, we can perform several useful post-processing operations. First, we can tonemap the rendered HDR color data into LDR. Second, if we have labeled our scene using the Hypersim Scene Annotation Tool (located at `ml-hypersim/code/cpp/bin/scene_annotation_tool`), we can generate semantic segmentation images. The scene in this tutorial example has already been labeled, and the segmentation data has been checked in, so we can generate segmentation images without needing to label the scene manually. Third, we can generate animations of our rendered output.
+After the rendering output has been generated, we can perform several useful post-processing operations. First, we can tone-map the rendered HDR color data into LDR. Second, if we have labeled our scene using the Hypersim Scene Annotation Tool (located at `ml-hypersim/code/cpp/bin/scene_annotation_tool`), we can generate semantic segmentation images. The scene in this tutorial example has already been labeled, and the segmentation data has been checked in, so we can generate segmentation images without needing to label the scene manually. Third, we can generate animations of our rendered output.
 
 ```
 # generate tone-mapped images for visualization
