@@ -130,18 +130,18 @@ for s in scenes:
     shutil.copy(in_file, out_file)
 
     #
-    # replace hard-coded path to legacy assets
+    # replace hard-coded paths with portable paths
     #
 
-    if _system_config.asset_sceneassets_photometric_dir_legacy != "":
-        
+    for asset_sceneassets_photometric_replace_dir in _system_config.asset_sceneassets_photometric_replace_dirs:
+
         in_file  = os.path.abspath(os.path.join(tmp_dir, tmp_scene_fileroot + "_out.vrscene"))
         out_file = os.path.abspath(os.path.join(tmp_dir, tmp_scene_fileroot + "_in.vrscene"))
         shutil.move(in_file, out_file)
 
         in_file          = os.path.abspath(os.path.join(tmp_dir, tmp_scene_fileroot + "_in.vrscene"))
         out_file         = os.path.abspath(os.path.join(tmp_dir, tmp_scene_fileroot + "_out.vrscene"))
-        replace_old_path = '"' + _system_config.asset_sceneassets_photometric_dir_legacy + '"'
+        replace_old_path = '"' + asset_sceneassets_photometric_replace_dir + '"'
         replace_new_path = asset_sceneassets_photometric_dir_when_rendering.replace("\\", "\\\\")
 
         current_source_file_path = path_utils.get_current_source_file_path(frame=inspect.currentframe())

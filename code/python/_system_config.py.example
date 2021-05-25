@@ -8,14 +8,15 @@ vrimg2exr_bin  = "/Applications/ChaosGroup/V-Ray/Standalone_for_mavericks_x64/bi
 python_bin = "python"
 
 # required by the Hypersim High-Level Toolkit during initialization and normalization
-# decompress_bin is the binary executable responsible for decompressing asset files;
-# asset_file_ext is the file extension of top-level asset files;
-# asset_sceneassets_photometric_dir_legacy is a directory containing legacy shared asset files
-# (if this directory appears in a vrscene file after being exported, it will be replaced with the
-# corrent non-legacy directory during normalization)
-decompress_bin                           = ""
-asset_file_ext                           = ""
-asset_sceneassets_photometric_dir_legacy = ""
+#   - decompress_bin is the binary executable responsible for decompressing asset files
+#   - asset_file_ext is the file extension of top-level asset files
+#   - asset_sceneassets_photometric_replace_dirs is an array of directories containing
+#     shared asset files (if any of these directories appears in a vrscene file after
+#     being exported, it will be replaced with a portable directory during normalization,
+#     i.e., a directory that is a child of the top-level dataset_dir
+decompress_bin                             = ""
+asset_file_ext                             = ""
+asset_sceneassets_photometric_replace_dirs = []
 
 # required by the Hypersim High-Level Toolkit to submit rendering jobs for cloud rendering
 cloud_server_hostname      = "127.0.0.1"
