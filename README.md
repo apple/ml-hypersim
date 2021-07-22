@@ -12,10 +12,11 @@ The Hypersim Dataset is licensed under the [Creative Commons Attribution-ShareAl
 If you find the Hypersim Dataset or the Hypersim Toolkit useful in your research, please cite the following [paper](https://arxiv.org/abs/2011.02523):
 
 ```
-@misc{roberts:2020,
-    author       = {Mike Roberts AND Nathan Paczan},
+@inproceedings{roberts:2021,
+    author       = {Mike Roberts AND Jason Ramapuram AND Anurag Ranjan AND Atulit Kumar AND
+                    Miguel Angel Bautista AND Nathan Paczan AND Russ Webb AND Joshua M. Susskind},
     title        = {{Hypersim}: {A} Photorealistic Synthetic Dataset for Holistic Indoor Scene Understanding},
-    howpublished = {arXiv 2020},
+    howpublished = {International Conference on Computer Vision (ICCV) 2021},
 }
 ```
 
