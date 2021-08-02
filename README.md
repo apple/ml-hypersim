@@ -13,10 +13,11 @@ If you find the Hypersim Dataset or the Hypersim Toolkit useful in your research
 
 ```
 @inproceedings{roberts:2021,
-    author       = {Mike Roberts AND Jason Ramapuram AND Anurag Ranjan AND Atulit Kumar AND
-                    Miguel Angel Bautista AND Nathan Paczan AND Russ Webb AND Joshua M. Susskind},
-    title        = {{Hypersim}: {A} Photorealistic Synthetic Dataset for Holistic Indoor Scene Understanding},
-    howpublished = {International Conference on Computer Vision (ICCV) 2021},
+    author    = {Mike Roberts AND Jason Ramapuram AND Anurag Ranjan AND Atulit Kumar AND
+                 Miguel Angel Bautista AND Nathan Paczan AND Russ Webb AND Joshua M. Susskind},
+    title     = {{Hypersim}: {A} Photorealistic Synthetic Dataset for Holistic Indoor Scene Understanding},
+    booktitle = {International Conference on Computer Vision (ICCV) 2021},
+    year      = {2021}
 }
 ```
 
