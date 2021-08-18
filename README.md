@@ -246,6 +246,10 @@ The following components are optional, so you only need to install these prerequ
   - Install the following Python libraries: pillow
     - http://pillow.readthedocs.io
 
+### Configuring the Hypersim Python tools for your system
+
+You need to rename `ml-hypersim/code/python/_system_config.py.example -> _system_config.py`, and modify the paths contained in this file for your system.
+
 ### Installing V-Ray Standalone and the V-Ray AppSDK
 
 Make sure the `bin` directory from V-Ray Standalone is in your `PATH` environment variable. Also make sure that the `bin` directory from the V-Ray AppSDK is in your `DYLD_LIBRARY_PATH` environment variable. For example, I add the following to my `~/.bash_profile` file.
@@ -279,10 +283,6 @@ If the V-Ray AppSDK is installed correctly, this tool will print out the followi
 ```
 [HYPERSIM: CHECK_VRAY_APPSDK_INSTALL] The V-Ray AppSDK is configured correctly on your system.
 ```
-
-### Configuring the Hypersim Python tools for your system
-
-You need to rename `ml-hypersim/code/python/_system_config.py.example -> _system_config.py`, and modify the paths contained in this file for your system.
 
 ### Building the Hypersim C++ tools
 
