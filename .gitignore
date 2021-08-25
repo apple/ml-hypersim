@@ -1,0 +1,10 @@
+__pycache__
+code/cpp/system_config.inc
+code/cpp/bin
+code/python/_system_config.py
+code/python/tools/libcgauth.dylib
+code/python/tools/libvray.dylib
+code/python/tools/libvrayopenimageio.dylib
+code/python/tools/libvrayosl.dylib
+code/python/tools/libVRaySDKLibrary.dylib
+code/python/tools/plugins

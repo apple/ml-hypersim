@@ -236,13 +236,16 @@ for in_filename in in_filenames:
             fragments_p1_screen.append(p1_screen.A1)
             fragments_p2_screen.append(p2_screen.A1)
             fragments_color.append(color)
-                
+
         def generate_fragments_for_line(p1_obj, p2_obj, n_obj, color):
             p1_screen, p1_ndc, p1_clip, p1_cam, p1_world = transform_point_screen_from_obj(p1_obj)
             p2_screen, p2_ndc, p2_clip, p2_cam, p2_world = transform_point_screen_from_obj(p2_obj)
             p1_inside_frustum = all(p1_ndc == clip(p1_ndc,-1,1))
             p2_inside_frustum = all(p2_ndc == clip(p2_ndc,-1,1))
 
+            # strictly speaking this frustum culling test is incorrect, because it will discard lines
+            # that pass through the frustum but whose endpoints are both outside the frustum; but this
+            # is a rare case, and frustum culling in this way is a lot faster, so we do it anyway
             if p1_inside_frustum or p2_inside_frustum:
                 num_pixels_per_line = linalg.norm(p2_screen - p1_screen)
                 num_fragments_per_line = int(ceil(num_pixels_per_line*num_fragments_per_pixel))
