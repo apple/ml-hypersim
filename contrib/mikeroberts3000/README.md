@@ -8,7 +8,7 @@ In this directory, we provide: (1) a modified perspective projection matrix for 
 
 The `metadata_camera_parameters.csv` file contains every camera parameter for every scene obtained directly from the corresponding vrscene file. Each row in this CSV file describes a scene, and the `M_proj_00`, `M_proj_01`, ..., `M_proj_44` columns define the entries of the 4x4 perspective projection matrix for that scene, assuming that camera-space points are stored as [x,y,z,w] column-vectors. For many scenes, this matrix will be identical to the usual OpenGL perspective projection matrix. For other scenes with non-standard tilt-shift parameters, this matrix will be slightly modified to account for the tilt-shift parameters.
 
-This [example notebook](jupyter/00projecting_points_into_hypersim_images.ipynb) demonstrates how to project world-space space points into a Hypersim image.
+This [example notebook](jupyter/00_projecting_points_into_hypersim_images.ipynb) demonstrates how to project world-space space points into a Hypersim image.
 
 ## Casting rays that match a given image
 
