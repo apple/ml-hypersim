@@ -132,8 +132,8 @@ for in_filename in in_filenames:
     far           = 1000.0
 
     # construct projection matrix
-    f_h    = tan(fov_y/2.0)*near;
-    f_w    = f_h*width_pixels/height_pixels;
+    f_h    = tan(fov_y/2.0)*near
+    f_w    = f_h*width_pixels/height_pixels
     left   = -f_w
     right  = f_w
     bottom = -f_h

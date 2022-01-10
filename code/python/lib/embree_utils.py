@@ -29,11 +29,11 @@ def generate_ray_intersections(vertices, faces, ray_positions, ray_directions, t
     with h5py.File(tmp_ray_positions_hdf5_file,  "w") as f: f.create_dataset("dataset", data=ray_positions)
     with h5py.File(tmp_ray_directions_hdf5_file, "w") as f: f.create_dataset("dataset", data=ray_directions)
 
-    current_source_path  = path_utils.get_current_source_file_path(frame=inspect.currentframe())
-    generate_octomap_bin = os.path.abspath(os.path.join(current_source_path, "..", "..", "cpp", "bin", "generate_ray_intersections"))
+    current_source_path            = path_utils.get_current_source_file_path(frame=inspect.currentframe())
+    generate_ray_intersections_bin = os.path.abspath(os.path.join(current_source_path, "..", "..", "cpp", "bin", "generate_ray_intersections"))
 
     cmd = \
-        generate_octomap_bin + \
+        generate_ray_intersections_bin + \
         " --vertices_file="                  + tmp_vertices_hdf5_file                  + \
         " --faces_file="                     + tmp_faces_hdf5_file                     + \
         " --ray_positions_file="             + tmp_ray_positions_hdf5_file             + \

@@ -8,3 +8,11 @@ code/python/tools/libvrayopenimageio.dylib
 code/python/tools/libvrayosl.dylib
 code/python/tools/libVRaySDKLibrary.dylib
 code/python/tools/plugins
+contrib/mikeroberts3000/jupyter/.ipynb_checkpoints
+contrib/mikeroberts3000/jupyter/_tmp
+contrib/mikeroberts3000/python/libcgauth.dylib
+contrib/mikeroberts3000/python/libvray.dylib
+contrib/mikeroberts3000/python/libvrayopenimageio.dylib
+contrib/mikeroberts3000/python/libvrayosl.dylib
+contrib/mikeroberts3000/python/libVRaySDKLibrary.dylib
+contrib/mikeroberts3000/python/plugins

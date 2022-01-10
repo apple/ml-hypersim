@@ -544,37 +544,40 @@ def download_files(args):
 
     # For each zip file
     for url in URLS:
-        f = WebFile(url, session)
 
-        z = zipfile.ZipFile(f)
+        if args.scene is None or args.scene in url:
 
-        # for each file in zip file
-        for entry in z.infolist():
+            f = WebFile(url, session)
 
-            # skip directories in zip file (will be created automatically)
-            if entry.is_dir():
-                continue
+            z = zipfile.ZipFile(f)
 
-            path = os.path.join(args.directory, entry.filename)
+            # for each file in zip file
+            for entry in z.infolist():
 
-            contains_all_words = all(
-                word in entry.filename for words in args.contains for word in words
-            )
+                # skip directories in zip file (will be created automatically)
+                if entry.is_dir():
+                    continue
 
-            if args.list:
-                if contains_all_words:
-                    print(entry.filename)
-            else:
-                if contains_all_words:
-                    if os.path.isfile(path) and not args.overwrite:
-                        print("File already exists:", path)
-                    else:
-                        print("Downloading:", path)
+                path = os.path.join(args.directory, entry.filename)
 
-                        z.extract(entry.filename, args.directory)
+                contains_all_words = all(
+                    word in entry.filename for words in args.contains for word in words
+                )
+
+                if args.list:
+                    if contains_all_words:
+                        print(entry.filename)
                 else:
-                    if not args.silent:
-                        print("Skipping:", path)
+                    if contains_all_words:
+                        if os.path.isfile(path) and not args.overwrite:
+                            print("File already exists:", path)
+                        else:
+                            print("Downloading:", path)
+
+                            z.extract(entry.filename, args.directory)
+                    else:
+                        if not args.silent:
+                            print("Skipping:", path)
 
 
 def main():
@@ -604,6 +607,7 @@ example: print this help text
     parser.add_argument("-d", "--directory", type=str, default="downloads", help="directory to download to")
     parser.add_argument("-o", "--overwrite", action="store_true", help="overwrite existing files")
     parser.add_argument("-c", "--contains", nargs="*", action="append", default=[], help="only download file if name contains specific word(s)")
+    parser.add_argument("-e", "--scene", type=str, help="only download files from this scene")
     parser.add_argument("-s", "--silent", action="store_true", help="only print downloaded files")
     parser.add_argument("-l", "--list", action="store_true", help="only list files, do not download")
 
