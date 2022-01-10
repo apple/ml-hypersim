@@ -126,9 +126,9 @@ Each camera trajectory is stored as a dense list of camera poses in `ai_VVV_NNN/
 
 `camera_keyframe_positions.hdf5` contains an Nx3 array of camera positions, where N is the number of frames in the trajectory, and each position is stored in [x,y,z] order. These positions are specified in asset coordinates.
 
-The camera intrinsics for our images (i.e., equirectangular pinhole camera, 60 degree horizontal field-of-view, square pixels) are defined globally in `ml-hypersim/evermotion_dataset/_vray_user_params.py`.
+### Camera intrinsics
 
-We recommend browsing through `ml-hypersim/code/python/tools/scene_generate_images_bounding_box.py` to better understand our camera pose conventions. In this file, we generate an image that has per-instance 3D bounding boxes overlaid on top of a previously rendered image. This process involves loading a previously rendered image, loading the appropriate camera pose for that image, forming the appropriate projection matrix, and projecting the world-space corners of each bounding box into the image.
+Each scene uses slightly different camera intrinsics for rendering. This behavior arises because some scenes use non-standard tilt-shift photography parameters in their scene definition files. In `contrib/mikeroberts3000`, we provide a modified perspective projection matrix for each scene that can be used as a drop-in replacement for the usual OpenGL perspective projection matrix, as well as example code for projecting world-space points into Hypersim images. We recommend browsing through this example code to better understand our camera pose conventions.
 
 ### 3D bounding boxes
 
