@@ -16,7 +16,7 @@ The `metadata_camera_parameters.csv` file also contains `M_cam_from_uv_00`, `M_c
 
 This [example notebook](jupyter/01_casting_rays_that_match_hypersim_images.ipynb) demonstrates how use this matrix to cast rays that exactly match a Hypersim image.
 
-## Computing modified camera intrinsics for each scene
+## Computing camera intrinsics for each scene
 
 The `python/dataset_generate_camera_parameters_metadata.py` script computes modified camera intrinsics for each scene. This script assumes that all the Hypersim scenes have already been exported into vrscene files, and has the same dependencies as the Hypersim High-Level Toolkit. The output from this script has been checked in, so most users will not need to execute this script, but we provide it here for reference.
 
