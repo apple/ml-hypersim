@@ -131,7 +131,13 @@ for in_filename in in_filenames:
     near          = 1.0
     far           = 1000.0
 
+    #
     # construct projection matrix
+    #
+    # HACK: we should the per-scene projection matrix defined in contrib/mikeroberts3000
+    # because this matrix will be incorrect for some scenes
+    #
+
     f_h    = tan(fov_y/2.0)*near
     f_w    = f_h*width_pixels/height_pixels
     left   = -f_w
@@ -243,9 +249,9 @@ for in_filename in in_filenames:
             p1_inside_frustum = all(p1_ndc == clip(p1_ndc,-1,1))
             p2_inside_frustum = all(p2_ndc == clip(p2_ndc,-1,1))
 
-            # strictly speaking this frustum culling test is incorrect, because it will discard lines
-            # that pass through the frustum but whose endpoints are both outside the frustum; but this
-            # is a rare case, and frustum culling in this way is a lot faster, so we do it anyway
+            # HACK: strictly speaking this frustum culling test is incorrect, because it will discard lines
+            # that pass through the frustum but whose endpoints are both outside the frustum; but this is a
+            # rare case, and frustum culling in this way is a lot faster, so we do it anyway
             if p1_inside_frustum or p2_inside_frustum:
                 num_pixels_per_line = linalg.norm(p2_screen - p1_screen)
                 num_fragments_per_line = int(ceil(num_pixels_per_line*num_fragments_per_pixel))
