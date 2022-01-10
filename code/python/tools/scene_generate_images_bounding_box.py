@@ -134,7 +134,7 @@ for in_filename in in_filenames:
     #
     # construct projection matrix
     #
-    # HACK: we should the per-scene projection matrix defined in contrib/mikeroberts3000
+    # HACK: we should use the per-scene projection matrix defined in contrib/mikeroberts3000
     # because this matrix will be incorrect for some scenes
     #
 

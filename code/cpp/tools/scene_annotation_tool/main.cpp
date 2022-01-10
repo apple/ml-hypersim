@@ -484,6 +484,7 @@ void initialize_tool_state_deferred() {
         igl::look_at( g_viewer.core().camera_eye, g_viewer.core().camera_center, camera_up_dir_, g_viewer.core().view);
         g_viewer.core().norm = g_viewer.core().view.inverse().transpose();
 
+        // HACK: we should use the per-scene projection matrix defined in contrib/mikeroberts3000 because this matrix will be incorrect for some scenes
         auto fov_x = g_cmd_fov_x_degrees*(igl::PI/180.0);
         auto fov_y = 2.0*std::atan(g_cmd_height_pixels * tan(fov_x/2.0) / g_cmd_width_pixels);
 
