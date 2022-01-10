@@ -1,6 +1,6 @@
 # Working with per-scene camera intrinsics in Hypersim
 
-Each Hypersim scene uses slightly different camera intrinsics for rendering. This behavior arises because some scenes make use of non-standard tilt-shift photography parameters in their scene definition files.
+Each Hypersim scene uses slightly different camera intrinsics for rendering. This behavior arises because some scenes use non-standard tilt-shift photography parameters in their scene definition files.
 
 In this directory, we provide: (1) a modified perspective projection matrix for each scene that can be used as a drop-in replacement for the usual OpenGL perspective projection matrix; (2) example code demonstrating how the modified projection matrix can be used in applications; and (3) code for computing the modified projection matrix for each scene.
 
