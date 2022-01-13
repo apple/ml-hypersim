@@ -315,7 +315,7 @@ for s in scenes:
         #
         # The scale of M_cam_from_uv_transformed is arbitrary, but we would prefer to define
         # it in a way that is as convenient as possible in OpenGL applications. So we solve
-        # for the scalar parameter k that minimizes the following expression:
+        # for the scale parameter k that minimizes the following expression:
         #
         # np.linalg.norm(np.identity(3) - M_cam_from_uv_canonical*(k*M_cam_from_uv_transformed).I)**2.0
         #
