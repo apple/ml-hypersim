@@ -128,7 +128,7 @@ Each camera trajectory is stored as a dense list of camera poses in `ai_VVV_NNN/
 
 ### Camera intrinsics
 
-Each scene uses slightly different camera intrinsics for rendering. This behavior arises because some scenes use non-standard tilt-shift photography parameters in their scene definition files. In `contrib/mikeroberts3000`, we provide a modified perspective projection matrix for each scene that can be used as a drop-in replacement for the usual OpenGL perspective projection matrix, as well as example code for projecting world-space points into Hypersim images. We recommend browsing through this example code to better understand our camera pose conventions.
+Each scene uses slightly different camera intrinsics for rendering. This behavior arises because some scenes use non-standard tilt-shift photography parameters in their scene definition files. In [`ml-hypersim/contrib/mikeroberts3000`](contrib/mikeroberts3000), we provide a modified perspective projection matrix for each scene that can be used as a drop-in replacement for the usual OpenGL perspective projection matrix, as well as example code for projecting world-space points into Hypersim images. We recommend browsing through this example code to better understand our camera pose conventions.
 
 ### 3D bounding boxes
 
