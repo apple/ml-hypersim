@@ -74,7 +74,7 @@ ai_VVV_NNN
     │   ├── frame.IIII.position.hdf5             # world-space positions (in asset coordinates)
     │   ├── frame.IIII.normal_cam.hdf5           # surface normals in camera-space (ignores bump mapping)
     │   ├── frame.IIII.normal_world.hdf5         # surface normals in world-space (ignores bump mapping)
-    │   ├── frame.IIII.normal_bump_cam.hdf5.     # surface normals in camera-space (takes bump mapping into account)
+    │   ├── frame.IIII.normal_bump_cam.hdf5      # surface normals in camera-space (takes bump mapping into account)
     │   ├── frame.IIII.normal_bump_world.hdf5    # surface normals in world-space (takes bump mapping into account)
     │   ├── frame.IIII.render_entity_id.hdf5     # fine-grained segmentation where each V-Ray node has a unique ID
     │   ├── frame.IIII.semantic.hdf5             # NYU40 semantic labels
