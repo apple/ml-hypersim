@@ -19,6 +19,11 @@ The `metadata_camera_parameters.csv` file also contains `M_cam_from_uv_00`, `M_c
 This [example notebook](jupyter/01_casting_rays_that_match_hypersim_images.ipynb) demonstrates how use this matrix to cast rays that exactly match a Hypersim image.
 
 &nbsp;
+## Rendering with PyTorch3D
+
+This [example notebook](jupyter/02_rendering_hypersim_meshes_with_pytorch3d.ipynb) demonstrates how render Hypersim meshes with PyTorch3D, such that the rendering exactly aligns with a pre-rendered Hypersim image.
+
+&nbsp;
 ## Computing camera intrinsics for each scene
 
 The `python/dataset_generate_camera_parameters_metadata.py` script computes modified camera intrinsics for each scene. This script assumes that all the Hypersim scenes have already been exported into vrscene files, and has the same dependencies as the Hypersim High-Level Toolkit. The output from this script has been checked in, so most users will not need to execute this script, but we provide it here for reference.
@@ -36,4 +41,6 @@ The command-line parameters to this tool are as follows.
 &nbsp;
 ## Acknowledgements
 
-We thank: Ainaz99, alex-sax, Frank-Mic, jatentaki, liuzhy71, rpautrat, and rikba for reporting this issue; liuzhy71 for helping to export camera parameters from vrscenes; rpautrat for helping to derive the intrinsics from V-Ray's camera parameters; and Boris Bozhinov and Momchil Lukanov from Chaos for their excellent support with the V-Ray CameraPhysical plugin.
+We thank: Ainaz99, alex-sax, Frank-Mic, jatentaki, liuzhy71, rpautrat, and rikba for reporting this issue; liuzhy71 for helping to export camera parameters from vrscenes; rpautrat for helping to derive the intrinsics from V-Ray's camera parameters; Boris Bozhinov and Momchil Lukanov from Chaos for their excellent support with the V-Ray CameraPhysical plugin; and Georgia Gkioxari her PyTorch3D support.
+
+
