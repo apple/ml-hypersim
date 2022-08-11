@@ -41,6 +41,6 @@ The command-line parameters to this tool are as follows.
 &nbsp;
 ## Acknowledgements
 
-We thank: Ainaz99, alex-sax, Frank-Mic, jatentaki, liuzhy71, rpautrat, and rikba for reporting this issue; liuzhy71 for helping to export camera parameters from vrscenes; rpautrat for helping to derive the intrinsics from V-Ray's camera parameters; Boris Bozhinov and Momchil Lukanov from Chaos for their excellent support with the V-Ray CameraPhysical plugin; and Georgia Gkioxari her PyTorch3D support.
+We thank: Ainaz99, alex-sax, Frank-Mic, jatentaki, liuzhy71, rpautrat, and rikba for reporting this issue; liuzhy71 for helping to export camera parameters from vrscenes; rpautrat for helping to derive the intrinsics from V-Ray's camera parameters; Boris Bozhinov and Momchil Lukanov from Chaos for their excellent support with the V-Ray CameraPhysical plugin; and Georgia Gkioxari for her PyTorch3D support.
 
 
