@@ -2,7 +2,7 @@
 # $ conda create --name <env> --file <this file>
 # platform: osx-64
 h5py=2.10.0=py37h3134771_0
-joblib=1.2.0=py_0
+joblib=0.17.0=py_0
 matplotlib=3.3.1=0
 pandas=1.1.3=py37hb1e8313_0
 python=3.7.9=h26836e1_0
