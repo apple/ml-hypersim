@@ -35,7 +35,7 @@ with open(args.in_file, "r") as in_file:
 
 
 
-# remove all plugins from the blacklist and store their names
+# remove all plugins from the remove list and store their names
 tmp_lines = []
 remove_plugin_names = []
 remove = False
@@ -68,7 +68,7 @@ tmp_lines = []
 
 for in_line in in_lines:
 
-    # turn on removing if the current line starts with anything from the black list
+    # turn on removing if the current line starts with anything from the remove list
     in_line_tokens = in_line.replace("=", " ").replace("(", " ").replace(")", " ").split()
 
     if len(in_line_tokens) >= 1:

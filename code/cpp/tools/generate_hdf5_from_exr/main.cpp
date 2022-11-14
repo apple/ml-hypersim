@@ -35,11 +35,11 @@ int main (int argc, const char** argv) {
 
     args::ArgumentParser parser("generate_hdf5_from_exr", "");
 
-    args::HelpFlag                   help                          (parser, "__DUMMY__",                 "Display this help menu",    {"h", "help"});
-    args::ValueFlag<std::string>     input_file_arg                (parser, "INPUT_FILE",                "input_file",                {"input_file"},  args::Options::Required);
-    args::ValueFlag<std::string>     output_file_arg               (parser, "OUTPUT_FILE",               "output_file",               {"output_file"}, args::Options::Required);
-    args::ValueFlagList<std::string> output_channels_whitelist_arg (parser, "OUTPUT_CHANNELS_WHITELIST", "output_channels_whitelist", {"o", "output_channels_whitelist"});
-    args::Flag                       silent_arg                    (parser, "__DUMMY__",                 "silent",                    {"silent"});
+    args::HelpFlag                   help                           (parser, "__DUMMY__",                  "Display this help menu",     {"h", "help"});
+    args::ValueFlag<std::string>     input_file_arg                 (parser, "INPUT_FILE",                 "input_file",                 {"input_file"},  args::Options::Required);
+    args::ValueFlag<std::string>     output_file_arg                (parser, "OUTPUT_FILE",                "output_file",                {"output_file"}, args::Options::Required);
+    args::ValueFlagList<std::string> output_channels_allow_list_arg (parser, "OUTPUT_CHANNELS_ALLOW_LIST", "output_channels_allow_list", {"o", "output_channels_allow_list"});
+    args::Flag                       silent_arg                     (parser, "__DUMMY__",                  "silent",                     {"silent"});
 
     try {
         parser.ParseCLI(argc, argv);
@@ -59,14 +59,14 @@ int main (int argc, const char** argv) {
         return 1;
     }
 
-    auto input_file                = args::get(input_file_arg);
-    auto output_file               = args::get(output_file_arg);
-    auto output_channels_whitelist = args::get(output_channels_whitelist_arg);
-    auto silent                    = args::get(silent_arg);
+    auto input_file                 = args::get(input_file_arg);
+    auto output_file                = args::get(output_file_arg);
+    auto output_channels_allow_list = args::get(output_channels_allow_list_arg);
+    auto silent                     = args::get(silent_arg);
 
-    auto use_output_channels_whitelist = !output_channels_whitelist.empty();
-    auto output_file_header_csv        = output_file + ".header.csv";
-    auto output_file_channels_csv      = output_file + ".channels.csv";
+    auto use_output_channels_allow_list = !output_channels_allow_list.empty();
+    auto output_file_header_csv         = output_file + ".header.csv";
+    auto output_file_channels_csv       = output_file + ".channels.csv";
 
     if (!silent) {
         std::cout << "[HYPERSIM: GENERATE_HDF5_FROM_EXR] Begin..." << std::endl;
@@ -242,7 +242,7 @@ int main (int argc, const char** argv) {
 
         for (auto cli = channels.begin(); cli != channels.end(); cli++) {
 
-            if (use_output_channels_whitelist && std::find(output_channels_whitelist.begin(), output_channels_whitelist.end(), std::string(cli.name())) == output_channels_whitelist.end()) {
+            if (use_output_channels_allow_list && std::find(output_channels_allow_list.begin(), output_channels_allow_list.end(), std::string(cli.name())) == output_channels_allow_list.end()) {
                 if (!silent) {
                     std::cout << "[HYPERSIM: GENERATE_HDF5_FROM_EXR] Skipping channel " << cli.name() << "..." << std::endl;
                 }

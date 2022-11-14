@@ -131,7 +131,7 @@ for in_filename in in_filenames:
 
     if args.render_pass == "geometry":
 
-        output_channels_whitelist = [
+        output_channels_allow_list = [
             "R",
             "G",
             "B",
@@ -151,7 +151,7 @@ for in_filename in in_filenames:
 
     if args.render_pass == "final":
 
-        output_channels_whitelist = [
+        output_channels_allow_list = [
             "R",
             "G",
             "B",
@@ -186,16 +186,16 @@ for in_filename in in_filenames:
             "VRayBackground.G",
             "VRayBackground.B" ]
 
-    current_source_path            = path_utils.get_current_source_file_path(frame=inspect.currentframe())
-    generate_hdf5_from_exr_bin     = os.path.abspath(os.path.join(current_source_path, "..", "..", "cpp", "bin", "generate_hdf5_from_exr"))
-    input_file                     = os.path.join(args.tmp_dir, "_tmp_frame.exr")
-    output_file                    = os.path.join(args.tmp_dir, "_tmp_frame")
-    output_channels_whitelist_args = " --o " + " --o ".join(output_channels_whitelist)
+    current_source_path             = path_utils.get_current_source_file_path(frame=inspect.currentframe())
+    generate_hdf5_from_exr_bin      = os.path.abspath(os.path.join(current_source_path, "..", "..", "cpp", "bin", "generate_hdf5_from_exr"))
+    input_file                      = os.path.join(args.tmp_dir, "_tmp_frame.exr")
+    output_file                     = os.path.join(args.tmp_dir, "_tmp_frame")
+    output_channels_allow_list_args = " --o " + " --o ".join(output_channels_allow_list)
 
     cmd = generate_hdf5_from_exr_bin + \
         " --input_file "  + input_file  + \
         " --output_file " + output_file + \
-        output_channels_whitelist_args
+        output_channels_allow_list_args
     print("")
     print(cmd)
     print("")

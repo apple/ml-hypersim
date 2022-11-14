@@ -277,11 +277,11 @@ ticks = [-12.0, -9.5, -7.0]
 H, H_edges = histogram(scene_type_ids, bins=scene_type_hist_n_bins, range=(scene_type_hist_min_bin_center - 0.5, scene_type_hist_max_bin_center + 0.5))
 tick_label = [ scene_type_id_to_name_map[i] for i in sort(list(scene_type_id_to_name_map.keys())) ]
 
-tick_label_black_list   = [ "OUTSIDE VIEWING AREA (BAD INITIALIZATION)", "OUTSIDE VIEWING AREA (BAD TRAJECTORY)" ]
+tick_label_ignore_list  = [ "OUTSIDE VIEWING AREA (BAD INITIALIZATION)", "OUTSIDE VIEWING AREA (BAD TRAJECTORY)" ]
 num_tick_labels_include = 10
 
 H_sorted_inds      = argsort(H)[::-1]
-H_sorted_inds_     = [ i for i in H_sorted_inds if tick_label[i] not in tick_label_black_list ]
+H_sorted_inds_     = [ i for i in H_sorted_inds if tick_label[i] not in tick_label_ignore_list ]
 H_sorted_inds_     = H_sorted_inds_[0:num_tick_labels_include]
 H_sorted_          = H[H_sorted_inds_]
 tick_label_sorted_ = [ tick_label[i] for i in H_sorted_inds_ ]
@@ -299,11 +299,11 @@ xlabel("Frequency\n\n(a)")
 H = unique_objects_per_class_hist
 tick_label = ["NO LABEL"] + [""] + [ semantic_id_to_name_map[i] for i in sort(list(semantic_id_to_name_map.keys())) ]
 
-tick_label_black_list   = ["NO LABEL", "", "wall", "floor", "ceiling"]
+tick_label_ignore_list  = [ "NO LABEL", "", "wall", "floor", "ceiling" ]
 num_tick_labels_include = 10
 
 H_sorted_inds      = argsort(H)[::-1]
-H_sorted_inds_     = [ i for i in H_sorted_inds if tick_label[i] not in tick_label_black_list ]
+H_sorted_inds_     = [ i for i in H_sorted_inds if tick_label[i] not in tick_label_ignore_list ]
 H_sorted_inds_     = H_sorted_inds_[0:num_tick_labels_include]
 H_sorted_          = H[H_sorted_inds_]
 tick_label_sorted_ = [ tick_label[i] for i in H_sorted_inds_ ]
@@ -340,11 +340,11 @@ xlim((1e-5,1e1))
 H = pixels_per_class_hist
 tick_label = [r"$\star$"] + [""] + [ semantic_id_to_name_map[i] for i in sort(list(semantic_id_to_name_map.keys())) ]
 
-tick_label_black_list   = [""]
+tick_label_ignore_list  = [""]
 num_tick_labels_include = 10
 
 H_sorted_inds      = argsort(H)[::-1]
-H_sorted_inds_     = [ i for i in H_sorted_inds if tick_label[i] not in tick_label_black_list ]
+H_sorted_inds_     = [ i for i in H_sorted_inds if tick_label[i] not in tick_label_ignore_list ]
 H_sorted_inds_     = H_sorted_inds_[0:num_tick_labels_include]
 H_sorted_          = H[H_sorted_inds_]
 tick_label_sorted_ = [ tick_label[i] for i in H_sorted_inds_ ]
