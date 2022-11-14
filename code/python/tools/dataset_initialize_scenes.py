@@ -46,10 +46,10 @@ if not os.path.exists(args.dataset_dir): os.makedirs(args.dataset_dir)
 # into a code repository. Note that we handle the "scenes" dir in a special case later in
 # this file.
 if args.dataset_dir_to_copy is not None:
-    dataset_dir_copy_global_whitelist = ["_dataset_config.py", "_vray_user_params.py"]
+    dataset_dir_copy_global_allow_list = ["_dataset_config.py", "_vray_user_params.py"]
     dataset_dir_to_copy_contents = sort(glob.glob(os.path.join(args.dataset_dir_to_copy, "*")))
     for c in dataset_dir_to_copy_contents:
-        if os.path.basename(c) in dataset_dir_copy_global_whitelist:
+        if os.path.basename(c) in dataset_dir_copy_global_allow_list:
             if os.path.isfile(c):
                 print("[HYPERSIM: DATASET_INITIALIZE_SCENES] Copying " + c + "...")
                 shutil.copy(c, args.dataset_dir)
