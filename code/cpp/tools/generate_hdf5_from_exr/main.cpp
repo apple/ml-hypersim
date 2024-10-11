@@ -348,5 +348,7 @@ int main (int argc, const char** argv) {
         std::cout << e.what() << std::endl;
     }
 
-    std::cout << "[HYPERSIM: GENERATE_HDF5_FROM_EXR] Finished." << std::endl;
+    if (!silent) {
+        std::cout << "[HYPERSIM: GENERATE_HDF5_FROM_EXR] Finished." << std::endl;
+    }
 }
