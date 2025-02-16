@@ -24,9 +24,15 @@
 #
 
 import os
+from fileinput import filename
+from time import sleep
 import argparse
 import requests
 import zipfile
+
+from requests.exceptions import ConnectionError, RequestException
+from urllib3.exceptions import ProtocolError
+from zipfile import BadZipfile
 
 # Increase download speed
 zipfile.ZipExtFile.MIN_READ_SIZE = 2 ** 20
@@ -539,6 +545,28 @@ class WebFile:
         return data
 
 
+def init_webfile(url, session):
+    try:
+        f = WebFile(url, session)
+        z = zipfile.ZipFile(f)
+        return True, z
+    except (BadZipfile, ConnectionError, ProtocolError, RequestException):
+        sleep(5)
+        return False, None
+
+
+def download_curr_file(z, filename, directory, f_path):
+    try:
+        z.extract(filename, directory)
+        return True
+    except (ConnectionError, ProtocolError, RequestException):
+        if os.path.exists(f_path):
+            os.remove(f_path)
+        print(f"retrying {f_path}")
+        sleep(5)
+        return False
+
+
 def download_files(args):
     session = requests.session()
 
@@ -547,9 +575,10 @@ def download_files(args):
 
         if args.scene is None or args.scene in url:
 
-            f = WebFile(url, session)
-
-            z = zipfile.ZipFile(f)
+            # makes sure that the Webfile object is created and contents of zipfile are read successfully
+            wf_init = False
+            while not wf_init:
+                wf_init, z = init_webfile(url, session)
 
             # for each file in zip file
             for entry in z.infolist():
@@ -573,8 +602,10 @@ def download_files(args):
                             print("File already exists:", path)
                         else:
                             print("Downloading:", path)
+                            download_success = False
+                            while not download_success:
+                                download_success = download_curr_file(z, entry.filename, args.directory, path)
 
-                            z.extract(entry.filename, args.directory)
                     else:
                         if not args.silent:
                             print("Skipping:", path)
