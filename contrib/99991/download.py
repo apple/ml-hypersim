@@ -24,9 +24,14 @@
 #
 
 import os
+from time import sleep
 import argparse
 import requests
 import zipfile
+
+from requests.exceptions import ConnectionError, RequestException
+from urllib3.exceptions import ProtocolError
+from zipfile import BadZipfile
 
 # Increase download speed
 zipfile.ZipExtFile.MIN_READ_SIZE = 2 ** 20
@@ -537,6 +542,28 @@ class WebFile:
         self.offset += len(data)
 
         return data
+
+
+def init_webfile(url, session):
+    try:
+        f = WebFile(url, session)
+        z = zipfile.ZipFile(f)
+        return True, z
+    except (BadZipfile, ConnectionError, ProtocolError, RequestException):
+        sleep(5)
+        return False, None
+
+
+def download_curr_file(z, filename, directory, f_path):
+    try:
+        z.extract(filename, directory)
+        return True
+    except (ConnectionError, ProtocolError, RequestException):
+        if os.path.exists(f_path):
+            os.remove(f_path)
+        print(f"retrying {f_path}")
+        sleep(5)
+        return False
 
 
 def download_files(args):
