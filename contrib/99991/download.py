@@ -24,6 +24,7 @@
 #
 
 import os
+from fileinput import filename
 from time import sleep
 import argparse
 import requests
@@ -574,9 +575,10 @@ def download_files(args):
 
         if args.scene is None or args.scene in url:
 
-            f = WebFile(url, session)
-
-            z = zipfile.ZipFile(f)
+            # makes sure that the Webfile object is created and contents of zipfile are read successfully
+            wf_init = False
+            while not wf_init:
+                wf_init, z = init_webfile(url, session)
 
             # for each file in zip file
             for entry in z.infolist():
@@ -600,8 +602,10 @@ def download_files(args):
                             print("File already exists:", path)
                         else:
                             print("Downloading:", path)
+                            download_success = False
+                            while not download_success:
+                                download_success = download_curr_file(z, entry.filename, args.directory, path)
 
-                            z.extract(entry.filename, args.directory)
                     else:
                         if not args.silent:
                             print("Skipping:", path)
