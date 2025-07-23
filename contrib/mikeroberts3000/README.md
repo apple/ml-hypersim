@@ -7,14 +7,14 @@ In this directory, we provide: (1) a modified perspective projection matrix for 
 &nbsp;
 ## Obtaining the perspective projection matrix for a given scene
 
-The `metadata_camera_parameters.csv` file contains every camera parameter for every scene obtained directly from the corresponding vrscene file. Each row in this CSV file describes a scene, and the `M_proj_00`, `M_proj_01`, ..., `M_proj_44` columns define the entries of the 4x4 perspective projection matrix for that scene, assuming that camera-space points are stored as [x,y,z,w] column-vectors. For many scenes, this matrix will be identical to the usual OpenGL perspective projection matrix. For other scenes with non-standard tilt-shift parameters, this matrix will be slightly modified to account for the tilt-shift parameters.
+The `metadata_camera_parameters.csv` file contains every camera parameter for every scene obtained directly from the corresponding vrscene file. Each row in this CSV file describes a scene, and the `M_proj_00`, `M_proj_01`, ..., `M_proj_33` columns define the entries of the 4x4 perspective projection matrix for that scene, assuming that camera-space points are stored as [x,y,z,w] column-vectors. For many scenes, this matrix will be identical to the usual OpenGL perspective projection matrix. For other scenes with non-standard tilt-shift parameters, this matrix will be slightly modified to account for the tilt-shift parameters.
 
 This [example notebook](jupyter/00_projecting_points_into_hypersim_images.ipynb) demonstrates how to use this matrix to project world-space points into a Hypersim image.
 
 &nbsp;
 ## Casting rays that match a given image
 
-The `metadata_camera_parameters.csv` file also contains `M_cam_from_uv_00`, `M_cam_from_uv_01`, ..., `M_cam_from_uv_33` columns that define a 3x3 matrix that is useful for raycasting. In particular, this matrix can be used to transform pixel coordinates into camera-space rays.
+The `metadata_camera_parameters.csv` file also contains `M_cam_from_uv_00`, `M_cam_from_uv_01`, ..., `M_cam_from_uv_22` columns that define a 3x3 matrix that is useful for raycasting. In particular, this matrix can be used to transform pixel coordinates into camera-space rays.
 
 This [example notebook](jupyter/01_casting_rays_that_match_hypersim_images.ipynb) demonstrates how use this matrix to cast rays that exactly match a Hypersim image.
 
